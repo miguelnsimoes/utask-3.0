@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm'
+import { User } from './entities/User'
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -9,5 +10,6 @@ export const AppDataSource = new DataSource({
     database: 'utask_db',
     synchronize: true,
     logging: true,
-    entities: [],
-})
+    entities: [User],
+    
+})  
