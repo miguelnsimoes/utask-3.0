@@ -2,6 +2,7 @@ import Fastify from 'fastify'
 import { AppDataSource } from './database'
 import fastifyJwt from '@fastify/jwt'
 import { authRoutes } from './routes/authRoutes'
+import { cardRoutes } from './routes/cardRoutes'
 
 const app = Fastify()
 
@@ -10,6 +11,7 @@ app.register(fastifyJwt, {
 })
 
 app.register(authRoutes)
+app.register(cardRoutes)
 
 const start = async () => {
     try {
