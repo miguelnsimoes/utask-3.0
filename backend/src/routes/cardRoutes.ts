@@ -23,6 +23,13 @@ export async function cardRoutes(app: FastifyInstance){
 
     })
 
+    app.get('/cards', async (request)=>{
+        const userId = request.user.sub
+        const cardRepository = AppDataSource.getRepository(Card)
 
+        return await cardRepository.findBy({
+            user: {id: Number(userId)}
+        })
+    })
 
 }
