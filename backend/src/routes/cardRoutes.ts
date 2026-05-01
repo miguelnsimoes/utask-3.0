@@ -54,9 +54,24 @@ export async function cardRoutes(app: FastifyInstance){
         await cardRepository.save(card)
         return card
 
-        
-
-
     })
+
+    app.delete('/cards/:id', async(request, reply)=>{
+        const{id} = request.params as {id: string}
+        const userId = request.user.sub
+        const cardRepository = AppDataSource.getRepository(Card)
+
+        const result = await cardRepository.delete({
+            id: Number(id),
+            user: {id: Number(userId)}
+        })
+
+        if(result.affected === 0){
+            return reply.status(404).send({message: "Não foi possível deletar o card"})
+        }
+
+        return reply.status(204).send()
+    })
+
 
 }
