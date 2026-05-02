@@ -2,11 +2,24 @@
 
 @theme {
   --font-poppins: 'Poppins', sans-serif;
-  --color-primary: #4890F5;
+  
+  --color-light-bg: #FFFFFF;
   --color-dark-bg: #3D3D3D;
   --color-dark-card: #535353;
+  --color-dark-surface: #222222;
+  --color-light-gray: #FAFAFA;
+  --color-mid-gray: #EEEEEE;
+  --color-border-gray: #C4C4C4;
+  
+  --color-primary: #4890F5;
+  --color-primary-dark: #226ED8;
+  --color-primary-darker: #114FA7;
+  --color-primary-navy: #002D6C;
+
+  --color-error: #DF0000;
+  --color-error-light: #FFAFAF;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-}
+} 
