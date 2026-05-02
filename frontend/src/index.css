@@ -6,3 +6,7 @@
   --color-dark-bg: #3D3D3D;
   --color-dark-card: #535353;
 }
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
