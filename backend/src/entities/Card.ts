@@ -17,4 +17,4 @@ export class Card {
 
     @ManyToOne(() => User, (user) => user.id)
     user!: User
-}
+}   
