@@ -1,5 +1,5 @@
 import { Header } from '../components/Header'
-import illustration from '../assets/Ilustração do login.png'
+import illustration from '../assets/Ilustração do login.svg'
 import { useState } from 'react'
 
 export function Login() {
@@ -19,7 +19,7 @@ export function Login() {
       <div className="w-1/2 flex flex-col items-center justify-start pt-22 px-20">
         <h1 className="text-5xl font-bold text-primary-dark mb-12">uTask 3.0</h1>
         
-        <div className="flex flex-col w-full max-w-md">
+        <div className="flex flex-col w-full max-w-md">   
           <label className="text-sm mb-1 font-poppins font-normal">E-mail</label>
           <input 
             type="email"
@@ -44,7 +44,7 @@ export function Login() {
         </div>
           <a href="#" className="text-sm text-primary-dark mt-2 mb-6 underline font-poppins font-normal">Esqueceu a senha?</a>
 
-          <button className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-darker transition">Entrar</button>
+          <button className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Entrar</button>
           
             <hr className="my-8 w-50 mx-auto border-1 border-gray-400" />
             <p className="text-center text-sm underline font-poppins font-normal">Não tem cadastro  ? Crie uma conta</p>
