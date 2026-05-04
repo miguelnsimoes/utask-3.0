@@ -1,7 +1,10 @@
 import { Header } from '../components/Header'
 import illustration from '../assets/Ilustração.svg'
+import { useState } from 'react'
 
 export function Register() {
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     return (
         <div className="flex flex-col h-screen">
             <Header />
@@ -13,7 +16,7 @@ export function Register() {
                         
                         <div className="flex flex-col items-center mb-10">
                             <h1 className="text-5xl font-bold text-primary-dark mb-4">uTask 3.0</h1>
-                            <div className="w-64 border-b border-gray-400"></div>
+                            <div className="w-48 border-b border-gray-400"></div>
                         </div>
 
                         <div className='flex flex-col w-full'>
@@ -23,36 +26,56 @@ export function Register() {
                             <input 
                                 type="text" 
                                 placeholder='Seu nome de usuário'
-                                className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
+                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
                             />
 
-                            <label className='text-sm mb-1 font-poppins font-normal'>E=mail</label>
+                            <label className='text-sm mb-1 font-poppins font-normal'>E-mail</label>
                             <input 
                                 type="email" 
                                 placeholder='Endereço de e-mail'
-                                className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
+                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
                             />
 
                             <label className='text-sm mb-1 font-poppins font-normal'>Senha</label>
+                            <div className='relative'>
                             <input 
-                                type="password" 
+                                type={showPassword ? 'text' : 'password'} 
                                 placeholder='Senha secreta'
-                                className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
+                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
                             />
+                            <button type='button'
+                            onClick={()=> setShowPassword(!showPassword)}
+                            className="absolute right-3 top-3 text-400">
+                            <span className='material-icons'>
+                                {showPassword ? 'visibility' : 'visibility_off'}
+                            </span>  
+                            </button>
+                            </div>
 
-                            <label className='text-sm mb-1 font-poppins font-normal'>Confirme a sennha</label>
+                            <label className='text-sm mb-1 font-poppins font-normal'>Confirme a Senha</label>
+                            <div className='relative'>
                             <input 
-                                type="passwordConfirm" 
+                                type={showConfirmPassword ? "text" : "password"}
                                 placeholder='Senha secreta'
-                                className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
+                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-9'
                             />
-
+                            <button type='button'
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            className="absolute right-3 top-3 text-400">
+                            <span className='material-icons'>
+                                {showConfirmPassword ? 'visibility' : 'visibility_off'}
+                            </span>  
+                            </button>
+                            </div>
+                            
+                            <button className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Criar Cadastro</button>
+                 
                         </div>
 
                     </div>
                 </div>
 
-                <div className="w-px bg-primary h-3/4 self-center"></div>
+                <div className='w-px bg-primary my-16'></div>
 
                 <div className="w-1/2 flex items-center justify-center">
                     <img src={illustration} alt="ilustração" className="w-3/4" />
