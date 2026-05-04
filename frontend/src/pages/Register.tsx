@@ -5,6 +5,14 @@ import { useState } from 'react'
 export function Register() {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
+    const [form, setForm] = useState({ 
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    })
+
     return (
         <div className="flex flex-col h-screen">
             <Header />
@@ -26,6 +34,8 @@ export function Register() {
                             <input 
                                 type="text" 
                                 placeholder='Seu nome de usuário'
+                                value={form.username}
+                                onChange={e => setForm({ ...form, username: e.target.value })}
                                 className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
                             />
 
@@ -33,6 +43,8 @@ export function Register() {
                             <input 
                                 type="email" 
                                 placeholder='Endereço de e-mail'
+                                value={form.email}
+                                onChange={e => setForm({ ...form, email: e.target.value })} 
                                 className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
                             />
 
@@ -41,6 +53,8 @@ export function Register() {
                             <input 
                                 type={showPassword ? 'text' : 'password'} 
                                 placeholder='Senha secreta'
+                                value={form.password}
+                                onChange={e => setForm({ ...form, password: e.target.value })}
                                 className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
                             />
                             <button type='button'
@@ -57,6 +71,8 @@ export function Register() {
                             <input 
                                 type={showConfirmPassword ? "text" : "password"}
                                 placeholder='Senha secreta'
+                                value={form.confirmPassword} 
+                                onChange={e => setForm({ ...form, confirmPassword: e.target.value })}
                                 className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-9'
                             />
                             <button type='button'
