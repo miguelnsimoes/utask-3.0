@@ -25,6 +25,28 @@ export function Register() {
                                 placeholder='Seu nome de usuário'
                                 className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
                             />
+
+                            <label className='text-sm mb-1 font-poppins font-normal'>E=mail</label>
+                            <input 
+                                type="email" 
+                                placeholder='Endereço de e-mail'
+                                className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
+                            />
+
+                            <label className='text-sm mb-1 font-poppins font-normal'>Senha</label>
+                            <input 
+                                type="password" 
+                                placeholder='Senha secreta'
+                                className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
+                            />
+
+                            <label className='text-sm mb-1 font-poppins font-normal'>Confirme a sennha</label>
+                            <input 
+                                type="passwordConfirm" 
+                                placeholder='Senha secreta'
+                                className='border border-gray-400 rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary'
+                            />
+
                         </div>
 
                     </div>
