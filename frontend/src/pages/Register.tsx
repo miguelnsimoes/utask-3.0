@@ -2,9 +2,17 @@ import { Header } from '../components/Header'
 import illustration from '../assets/Ilustração.svg'
 import { useState } from 'react'
 
+interface FormErrors { 
+    username?: string
+    email?: string
+    password?: string
+    confirmPassword?: string
+}
+
 export function Register() {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+    const [errors, setErrors] = useState<FormErrors>({})
 
     const [form, setForm] = useState({ 
         username: '',
@@ -12,6 +20,31 @@ export function Register() {
         password: '',
         confirmPassword: ''
     })
+
+    function validade(): boolean{
+        const newErrors: FormErrors = {}
+
+        if(!form.username.trim())
+            newErrors.username = 'Digite um nome'
+
+        if(!form.email.trim())
+            newErrors.email = 'Digite um email'
+
+        if(!form.password.trim())
+            newErrors.password = 'Digite uma senha'
+
+        if(!form.confirmPassword.trim())
+            newErrors.confirmPassword = 'Confirme a senha'
+        else if(form.password !== form.confirmPassword)
+            newErrors.confirmPassword = 'Senhas não combinam, tente novamente.'
+        
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+        
+    }
+
+    const inputClass = (field: keyof FormErrors) => 
+        `border rounded-lg px-4 py-3 outline-none w-full mb-9 ${errors[field] ? 'border-red-400 bg-red-50 focus:border-red-400': 'bg-blue-50 focus:border-primary'}`
 
     return (
         <div className="flex flex-col h-screen">
@@ -36,7 +69,7 @@ export function Register() {
                                 placeholder='Seu nome de usuário'
                                 value={form.username}
                                 onChange={e => setForm({ ...form, username: e.target.value })}
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
+                                className={inputClass('username')}
                             />
 
                             <label className='text-sm mb-1 font-poppins font-normal'>E-mail</label>
@@ -45,7 +78,7 @@ export function Register() {
                                 placeholder='Endereço de e-mail'
                                 value={form.email}
                                 onChange={e => setForm({ ...form, email: e.target.value })} 
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
+                                className={inputClass('email')}
                             />
 
                             <label className='text-sm mb-1 font-poppins font-normal'>Senha</label>
@@ -55,7 +88,7 @@ export function Register() {
                                 placeholder='Senha secreta'
                                 value={form.password}
                                 onChange={e => setForm({ ...form, password: e.target.value })}
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
+                                className={inputClass('password')}
                             />
                             <button type='button'
                             onClick={()=> setShowPassword(!showPassword)}
@@ -73,7 +106,7 @@ export function Register() {
                                 placeholder='Senha secreta'
                                 value={form.confirmPassword} 
                                 onChange={e => setForm({ ...form, confirmPassword: e.target.value })}
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-9'
+                                className={inputClass('confirmPassword')}
                             />
                             <button type='button'
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -84,7 +117,8 @@ export function Register() {
                             </button>
                             </div>
                             
-                            <button className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Criar Cadastro</button>
+                            <button onClick={() => validade}
+                            className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Criar Cadastro</button>
                  
                         </div>
 
