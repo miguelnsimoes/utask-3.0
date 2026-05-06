@@ -6,7 +6,7 @@ interface FormErrors {
     username?: string
     email?: string
     password?: string
-    confirmPassword?: string
+    confirmPassword?: string 
 }
 
 export function Register() {
@@ -44,9 +44,12 @@ export function Register() {
     }
 
     const inputClass = (field: keyof FormErrors) => 
-        `border rounded-lg px-4 py-3 outline-none w-full mb-9 ${errors[field] ? 'border-red-400 bg-red-50 focus:border-red-400': 'bg-blue-50 focus:border-primary'}`
+        `border rounded-lg px-4 py-3 outline-none w-full ${errors[field] 
+            ? 'border-red-400 bg-red-50 focus:border-red-400' 
+            : 'bg-blue-50 focus:border-primary'
+        }`
 
-    return (
+    return (    
         <div className="flex flex-col h-screen">
             <Header />
 
@@ -71,6 +74,9 @@ export function Register() {
                                 onChange={e => setForm({ ...form, username: e.target.value })}
                                 className={inputClass('username')}
                             />
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.username ?? ''}
+                            </p>
 
                             <label className='text-sm mb-1 font-poppins font-normal'>E-mail</label>
                             <input 
@@ -80,7 +86,9 @@ export function Register() {
                                 onChange={e => setForm({ ...form, email: e.target.value })} 
                                 className={inputClass('email')}
                             />
-
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.email ?? ''}
+                            </p>
                             <label className='text-sm mb-1 font-poppins font-normal'>Senha</label>
                             <div className='relative'>
                             <input 
@@ -98,6 +106,9 @@ export function Register() {
                             </span>  
                             </button>
                             </div>
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.password ?? ''}
+                            </p>
 
                             <label className='text-sm mb-1 font-poppins font-normal'>Confirme a Senha</label>
                             <div className='relative'>
@@ -116,8 +127,11 @@ export function Register() {
                             </span>  
                             </button>
                             </div>
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.confirmPassword ?? ''}
+                            </p>
                             
-                            <button onClick={() => validade}
+                            <button onClick={() => validade()}
                             className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Criar Cadastro</button>
                  
                         </div>
