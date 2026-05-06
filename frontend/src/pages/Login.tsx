@@ -1,8 +1,10 @@
 import { Header } from '../components/Header'
 import illustration from '../assets/Ilustração do login.svg'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export function Login() {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   return (
   <div className="flex flex-col h-screen">
@@ -47,7 +49,7 @@ export function Login() {
           <button className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Entrar</button>
           
             <hr className="my-8 w-50 mx-auto border-1 border-gray-400" />
-            <p className="text-center text-sm underline font-poppins font-normal">Não tem cadastro  ? Crie uma conta</p>
+            <p onClick={() => navigate('/register')} className="text-center text-sm underline font-poppins font-normal">Não tem cadastro ? Crie uma conta</p>
         </div>
 
       </div>  

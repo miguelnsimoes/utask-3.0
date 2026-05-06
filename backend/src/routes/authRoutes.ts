@@ -4,13 +4,13 @@ import { User } from '../entities/User'
 import hash from 'bcryptjs'
 
 export async function authRoutes(app: FastifyInstance) {
-  app.post('/users', async (request, reply) => {
-    const { name, email, password } = request.body as any
+  app.post('/register', async (request, reply) => {
+    const { username, email, password } = request.body as any
     const userRepository = AppDataSource.getRepository(User)
     const passwordHash = await hash.hash(password, 8)
     
     const user = userRepository.create({
-      name,
+      name: username,
       email,
       password: passwordHash
     })

@@ -1,11 +1,74 @@
 import { Header } from '../components/Header'
 import illustration from '../assets/Ilustração.svg'
 import { useState } from 'react'
+import { registerUser } from '../services/auth'
+import axios from 'axios'
+
+interface FormErrors { 
+    username?: string
+    email?: string
+    password?: string
+    confirmPassword?: string 
+}
 
 export function Register() {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-    return (
+    const [errors, setErrors] = useState<FormErrors>({})
+
+    const [form, setForm] = useState({ 
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    })
+
+    function validate(): boolean{
+        const newErrors: FormErrors = {}
+
+        if(!form.username.trim())
+            newErrors.username = 'Digite um nome'
+
+        if(!form.email.trim())
+            newErrors.email = 'Digite um email'
+
+        if(!form.password.trim())
+            newErrors.password = 'Digite uma senha'
+
+        if(!form.confirmPassword.trim())
+            newErrors.confirmPassword = 'Confirme a senha'
+        else if(form.password !== form.confirmPassword)
+            newErrors.confirmPassword = 'Senhas não combinam, tente novamente.'
+        
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+        
+    }
+
+
+    async function handleSubmit(){
+        if(!validate())
+            return
+
+        try{
+            await registerUser(form.username, form.email, form.password)
+        }
+        catch (err) {
+            if (axios.isAxiosError(err) && err.response?.data?.message) { 
+                setErrors({ email: err.response.data.message })
+            }
+        }
+    }
+
+
+
+    const inputClass = (field: keyof FormErrors) => 
+        `border rounded-lg px-4 py-3 outline-none w-full ${errors[field] 
+            ? 'border-red-400 bg-red-50 focus:border-red-400' 
+            : 'bg-blue-50 focus:border-primary'
+        }`
+
+    return (    
         <div className="flex flex-col h-screen">
             <Header />
 
@@ -26,22 +89,33 @@ export function Register() {
                             <input 
                                 type="text" 
                                 placeholder='Seu nome de usuário'
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
+                                value={form.username}
+                                onChange={e => setForm({ ...form, username: e.target.value })}
+                                className={inputClass('username')}
                             />
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.username ?? ''}
+                            </p>
 
                             <label className='text-sm mb-1 font-poppins font-normal'>E-mail</label>
                             <input 
                                 type="email" 
                                 placeholder='Endereço de e-mail'
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
+                                value={form.email}
+                                onChange={e => setForm({ ...form, email: e.target.value })} 
+                                className={inputClass('email')}
                             />
-
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.email ?? ''}
+                            </p>
                             <label className='text-sm mb-1 font-poppins font-normal'>Senha</label>
                             <div className='relative'>
                             <input 
                                 type={showPassword ? 'text' : 'password'} 
                                 placeholder='Senha secreta'
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-4'
+                                value={form.password}
+                                onChange={e => setForm({ ...form, password: e.target.value })}
+                                className={inputClass('password')}
                             />
                             <button type='button'
                             onClick={()=> setShowPassword(!showPassword)}
@@ -51,13 +125,18 @@ export function Register() {
                             </span>  
                             </button>
                             </div>
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.password ?? ''}
+                            </p>
 
                             <label className='text-sm mb-1 font-poppins font-normal'>Confirme a Senha</label>
                             <div className='relative'>
                             <input 
                                 type={showConfirmPassword ? "text" : "password"}
                                 placeholder='Senha secreta'
-                                className='border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full mb-9'
+                                value={form.confirmPassword} 
+                                onChange={e => setForm({ ...form, confirmPassword: e.target.value })}
+                                className={inputClass('confirmPassword')}
                             />
                             <button type='button'
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -67,8 +146,12 @@ export function Register() {
                             </span>  
                             </button>
                             </div>
+                            <p className="text-red-500 text-xs h-5 mb-2">
+                                {errors.confirmPassword ?? ''}
+                            </p>
                             
-                            <button className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Criar Cadastro</button>
+                            <button onClick={handleSubmit}
+                            className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Criar Cadastro</button>
                  
                         </div>
 
