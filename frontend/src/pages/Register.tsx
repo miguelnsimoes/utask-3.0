@@ -1,6 +1,8 @@
 import { Header } from '../components/Header'
 import illustration from '../assets/Ilustração.svg'
 import { useState } from 'react'
+import { registerUser } from '../services/auth'
+import axios from 'axios'
 
 interface FormErrors { 
     username?: string
@@ -21,7 +23,7 @@ export function Register() {
         confirmPassword: ''
     })
 
-    function validade(): boolean{
+    function validate(): boolean{
         const newErrors: FormErrors = {}
 
         if(!form.username.trim())
@@ -42,6 +44,23 @@ export function Register() {
         return Object.keys(newErrors).length === 0
         
     }
+
+
+    async function handleSubmit(){
+        if(!validate())
+            return
+
+        try{
+            await registerUser(form.username, form.email, form.password)
+        }
+        catch (err) {
+            if (axios.isAxiosError(err) && err.response?.data?.message) { 
+                setErrors({ email: err.response.data.message })
+            }
+        }
+    }
+
+
 
     const inputClass = (field: keyof FormErrors) => 
         `border rounded-lg px-4 py-3 outline-none w-full ${errors[field] 
@@ -131,7 +150,7 @@ export function Register() {
                                 {errors.confirmPassword ?? ''}
                             </p>
                             
-                            <button onClick={() => validade()}
+                            <button onClick={handleSubmit}
                             className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Criar Cadastro</button>
                  
                         </div>
