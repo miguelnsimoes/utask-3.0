@@ -43,9 +43,14 @@ export function Login() {
       navigate('/')
     }
     catch(err){
-      setErrors({
-        password: (err as Error).message
-      })
+      const message = (err as Error).message
+
+      if(message === 'Email incorreto'){
+        setErrors({email: message})
+      }
+      else{
+        setErrors({password: message})
+      }
     }
   }
 
