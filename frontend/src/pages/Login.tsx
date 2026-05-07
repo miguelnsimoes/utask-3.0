@@ -6,6 +6,12 @@ import { useNavigate } from 'react-router-dom'
 export function Login() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
+
+  const[form, setForm] = useState({
+    email: '',
+    password: ''
+  })
+
   return (
   <div className="flex flex-col h-screen">
     <Header />
@@ -26,6 +32,8 @@ export function Login() {
           <input 
             type="email"
             placeholder="Endereço de e-mail"
+            value={form.email}
+            onChange={e => setForm({...form, email: e.target.value})}
             className="border rounded-lg px-4 py-3 mb-4 outline-none bg-blue-50 focus:border-primary"
           />
         <label className="text-sm mb-1 font-poppins font-normal">Senha</label>
@@ -33,6 +41,8 @@ export function Login() {
           <input 
             type={showPassword ? 'text' : 'password'}
             placeholder="Senha secreta"
+            value={form.password}
+            onChange={e => setForm({...form, password: e.target.value})}
             className="border rounded-lg px-4 py-3 outline-none bg-blue-50 focus:border-primary w-full"
           />
           <button 
