@@ -40,7 +40,7 @@ export function Login() {
     try{
       const data = await loginUser(form.email, form.password)
       localStorage.setItem('token', data.token)
-      navigate('/')
+      navigate('/kanban')
     }
     catch(err){
       const message = (err as Error).message
