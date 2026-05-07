@@ -1,8 +1,11 @@
 import { Header } from '../components/Header'
+import { SuccessModal } from '../components/SuccessModal'
 import illustration from '../assets/Ilustração.svg'
 import { useState } from 'react'
 import { registerUser } from '../services/auth'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 interface FormErrors { 
     username?: string
@@ -12,9 +15,11 @@ interface FormErrors {
 }
 
 export function Register() {
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [errors, setErrors] = useState<FormErrors>({})
+    const [showSuccessModal, setShowSuccessModal] = useState(false)
 
     const [form, setForm] = useState({ 
         username: '',
@@ -52,6 +57,10 @@ export function Register() {
 
         try{
             await registerUser(form.username, form.email, form.password)
+            setShowSuccessModal(true)
+            setTimeout(() => {
+               navigate('/')
+          }, 2000)
         }
         catch (err) {
             if (axios.isAxiosError(err) && err.response?.data?.message) { 
@@ -165,6 +174,11 @@ export function Register() {
                 </div>
 
             </div>
+
+            <SuccessModal 
+                    isOpen={showSuccessModal} 
+                />
+
         </div>
     )
 }
