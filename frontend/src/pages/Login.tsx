@@ -2,6 +2,7 @@ import { Header } from '../components/Header'
 import illustration from '../assets/Ilustração do login.svg'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { loginUser } from '../services/auth'
 
 interface FormErrors{
   email?: string
@@ -32,6 +33,22 @@ export function Login() {
     return Object.keys(newErrors).length === 0
   }
 
+  async function handleSubmit(){
+    if(!validate())
+      return
+
+    try{
+      const data = await loginUser(form.email, form.password)
+      localStorage.setItem('token', data.token)
+      navigate('/')
+    }
+    catch(err){
+      setErrors({
+        password: (err as Error).message
+      })
+    }
+  }
+
   const inputClass = (field: keyof FormErrors) =>
     `border rounded-lg px-4 py-3 outline-none w-full ${errors[field] ? 'border-red-400 bg-red-50 focus:border-red-400': 'bg-blue-50 focus:border-primary'}`
 
@@ -59,6 +76,7 @@ export function Login() {
             onChange={e => setForm({...form, email: e.target.value})}
             className={inputClass('email')}
           />
+        <p className="text-red-500 text-xs h-3 mb-2">{errors.email ?? ''}</p> 
         <label className="text-sm mb-1 font-poppins font-normal">Senha</label>
         <div className='relative'>
           <input 
@@ -77,10 +95,11 @@ export function Login() {
           </span>   
           </button>
         </div>
+          <p className="text-red-500 text-xs h-5 mb-2">{errors.password ?? ''}</p>
           <a href="#" className="text-sm text-primary-dark mt-2 mb-6 underline font-poppins font-normal">Esqueceu a senha?</a>
 
           <button 
-          onClick={() => validate()}
+          onClick={handleSubmit}
           className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Entrar</button>
           
             <hr className="my-8 w-50 mx-auto border-1 border-gray-400" />
