@@ -1,4 +1,5 @@
 import addTask from '../assets/Adicionar task.svg'
+import { KanbanCard } from './KanbanCard'
 
 interface Props {
     title: string
@@ -19,7 +20,7 @@ export function KanbanColumn({title, showAdd}: Props) {
             </div>
 
             <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm">
-                Teste
+                 <KanbanCard title="Teste"/>
             </div>
 
         </div>
