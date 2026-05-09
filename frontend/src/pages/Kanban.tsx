@@ -7,8 +7,8 @@ export function Kanban() {
         <div className="flex flex-col h-screen bg-gray-50">
             <KanbanHeader />
             <QuoteCard />
-            <div className="flex flex-1 gap-6 px-40 py-20"> 
-                <KanbanColumn title="A fazer" />
+            <div className="flex flex-1 gap-15 px-40 py-10"> 
+                <KanbanColumn title="A fazer" showAdd />
                 <KanbanColumn title="Em andamento" />
                 <KanbanColumn title="Feito" />
             </div>
