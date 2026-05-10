@@ -2,7 +2,7 @@ import logo from '../assets/logo.svg'
 
 export function KanbanHeader() {
     return (
-        <header className="w-full bg-primary-dark flex items-center h-20 relative px-10">
+        <header className="w-full bg-primary-dark flex items-center h-20 relative px-10 shadow-sm">
             
             <img src={logo} alt="uTask logo" className="w-60 h-8" />
 

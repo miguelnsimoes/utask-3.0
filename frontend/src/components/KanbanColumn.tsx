@@ -20,7 +20,7 @@ export function KanbanColumn({title, showAdd}: Props) {
             </div>
 
             <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm">
-                 <KanbanCard title="Teste"/>
+                 <KanbanCard title="Teste" description="Lorem"/>
             </div>
 
         </div>
