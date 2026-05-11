@@ -20,7 +20,11 @@ export function KanbanColumn({title, showAdd}: Props) {
             </div>
 
             <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm">
-                 <KanbanCard title="Teste" description="Lorem"/>
+                <KanbanCard 
+                title="Teste" 
+                description="Lorem ipsum dolor..." 
+                onDelete={() => console.log('deletar')}
+            />
             </div>
 
         </div>
