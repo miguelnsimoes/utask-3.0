@@ -1,6 +1,7 @@
 import { KanbanHeader } from '../components/KanbanHeader'
 import { QuoteCard } from '../components/QuoteCard'
 import { KanbanColumn } from '../components/KanbanColumn'
+import { Footer } from '../components/Footer'
 
 export function Kanban() {
     return (
@@ -12,6 +13,7 @@ export function Kanban() {
                 <KanbanColumn title="Em andamento" />
                 <KanbanColumn title="Feito" />
             </div>
+            <Footer />
         </div>
     )
 }
