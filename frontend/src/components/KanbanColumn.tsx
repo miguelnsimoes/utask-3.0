@@ -2,13 +2,15 @@ import addTask from '../assets/Adicionar task.svg'
 import { KanbanCard } from './KanbanCard'
 import { useState } from 'react'
 import { CreateCardModal } from './CreateCardModal'
+import type { Card } from '../services/cards'
 
 interface Props {
     title: string
     showAdd?: boolean
+    cards: Card[]
 }
 
-export function KanbanColumn({title, showAdd}: Props) {
+export function KanbanColumn({title, showAdd, cards}: Props) {
     const [showModal, setShowModal] = useState(false)
 
     return (
@@ -23,12 +25,15 @@ export function KanbanColumn({title, showAdd}: Props) {
                 )}
             </div>
 
-            <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm">
-                <KanbanCard 
-                title="Teste" 
-                description="Lorem ipsum dolor..." 
-                onDelete={() => console.log('deletar')}
-            />
+            <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm gap-4"> 
+                {cards.map(card => ( 
+                    <KanbanCard
+                        key={card.id} 
+                        title={card.title} 
+                        description={card.description} 
+                        onDelete={() => console.log('deletar', card.id)} 
+                    />
+                ))} 
             </div>
 
             {showModal && (
