@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import fechar from '../assets/Fechar.svg'
+import { createCard } from '../services/cards'
+
 
 interface Props {
     onClose: () => void
@@ -10,6 +12,28 @@ export function CreateCardModal({ onClose }: Props) {
         title: '',
         description: ''
     })
+
+
+    async function handleSubmit() {
+        try {
+            if (!form.title.trim()) {
+                alert('O título é obrigatório.')
+                return
+            }
+
+            await createCard(
+                form.title,
+                form.description,
+                'todo'
+            )
+            onClose()
+            window.location.reload()
+        } 
+        catch (error) {
+            console.error('Erro ao criar card:', error)
+            alert('Erro ao criar task.')
+        }
+    }
 
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
@@ -24,7 +48,7 @@ export function CreateCardModal({ onClose }: Props) {
                     </button>
                 </div>
 
-                <label className="text-sm font-poppins-poppins-semibold mb-2 block">Título *</label>
+                <label className="text-sm font-poppins-semibold mb-2 block">Título *</label>
                 <input
                     type="text"
                     value={form.title}
@@ -39,7 +63,10 @@ export function CreateCardModal({ onClose }: Props) {
                     className="rounded-xl px-4 py-3.5 outline-none bg-gray-100 text-gray-700 w-full h-32 resize-none mb-8 placeholder:text-gray-500" 
                 />
 
-                <button className="bg-primary-dark text-white py-3.5 rounded-full font-semibold w-full hover:bg-primary-navy transition">
+                <button
+                    onClick={handleSubmit}
+                    className="bg-primary-dark text-white py-3.5 rounded-full font-semibold w-full hover:bg-primary-navy transition"
+                >
                     Criar task
                 </button>
 
