@@ -1,35 +1,45 @@
-import fechar from '../assets/Fechar.svg' // NOVO
+import { useState } from 'react'
+import fechar from '../assets/Fechar.svg'
 
 interface Props {
     onClose: () => void
 }
 
 export function CreateCardModal({ onClose }: Props) {
-    return (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl p-8 w-full max-w-md">
+    const [form, setForm] = useState({
+        title: '',
+        description: ''
+    })
 
-                <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-bold text-primary-dark underline">Nova Task</h2>
-                    <button onClick={onClose}> 
+    return (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+            <div className="bg-white rounded-2xl p-8 sm:p-10 w-full max-w-lg">
+
+                <div className="relative flex items-center justify-center mb-8">
+                    <h2 className="text-[22px] font-bold text-primary-dark border-b-[3px] border-primary-dark pb-1 px-1">
+                        Nova Task
+                    </h2>
+                    <button onClick={onClose} className="absolute right-0">
                         <img src={fechar} alt="fechar" className="w-8 h-8" />
                     </button>
                 </div>
 
-                <label className="text-sm font-semibold mb-1 block">Título *</label>
+                <label className="text-sm font-poppins-poppins-semibold mb-2 block">Título *</label>
                 <input
                     type="text"
-                    placeholder="Enviar depoimento para o site da Unect"
-                    className="border rounded-lg px-4 py-3 outline-none bg-gray-50 focus:border-primary w-full mb-4"
+                    value={form.title}
+                    onChange={e => setForm({ ...form, title: e.target.value })}
+                    className="rounded-xl px-4 py-3.5 outline-none bg-gray-100 text-gray-700 w-full mb-5 placeholder:text-gray-500"
                 />
 
-                <label className="text-sm font-semibold mb-1 block">Descrição</label>
+                <label className="text-sm font-poppins-semibold mb-2 block">Descrição</label>
                 <textarea
-                    placeholder="Eu achava que precisava entrar na Unect..."
-                    className="border rounded-lg px-4 py-3 outline-none bg-gray-50 focus:border-primary w-full h-32 resize-none mb-6"
+                    value={form.description} 
+                    onChange={e => setForm({ ...form, description: e.target.value })}
+                    className="rounded-xl px-4 py-3.5 outline-none bg-gray-100 text-gray-700 w-full h-32 resize-none mb-8 placeholder:text-gray-500" 
                 />
 
-                <button className="bg-primary-dark text-white py-3 rounded-full font-semibold w-full hover:bg-primary-navy transition">
+                <button className="bg-primary-dark text-white py-3.5 rounded-full font-semibold w-full hover:bg-primary-navy transition">
                     Criar task
                 </button>
 
