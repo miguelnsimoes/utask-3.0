@@ -8,9 +8,10 @@ interface Props {
     title: string
     showAdd?: boolean
     cards: Card[]
+    onMoveCard: (cardId: number) => void
 }
 
-export function KanbanColumn({title, showAdd, cards}: Props) {
+export function KanbanColumn({title, showAdd, cards, onMoveCard}: Props) {
     const [showModal, setShowModal] = useState(false)
 
     return (
@@ -28,10 +29,12 @@ export function KanbanColumn({title, showAdd, cards}: Props) {
             <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm gap-4"> 
                 {cards.map(card => ( 
                     <KanbanCard
-                        key={card.id} 
+                        key={card.id}
+                        id={card.id} 
                         title={card.title} 
                         description={card.description} 
-                        onDelete={() => console.log('deletar', card.id)} 
+                        onDelete={() => console.log('deletar', card.id)}
+                        onMove={() => onMoveCard(card.id)}
                     />
                 ))} 
             </div>

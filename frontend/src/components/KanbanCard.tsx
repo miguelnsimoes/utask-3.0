@@ -2,12 +2,14 @@ import { useState } from 'react'
 import deleteIcon from '../assets/delete_outline.svg'
 
 interface Props {
+    id: number
     title: string
     description: string
     onDelete: () => void
+    onMove: () => void
 }
 
-export function KanbanCard({title, description, onDelete}: Props) {
+export function KanbanCard({id, title, description, onDelete, onMove}: Props) {
     const [expanded, setExpanded] = useState(false) 
     const [showMenu, setShowMenu] = useState(false)
 
@@ -33,7 +35,9 @@ export function KanbanCard({title, description, onDelete}: Props) {
                     
                 </button>
 
-                <button className="bg-primary-dark rounded-full w-8 h-8 flex items-center justify-center">
+                <button 
+                    onClick={onMove}
+                    className="bg-primary-dark rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary-dark/80 transition-colors cursor-pointer">
                     <span className="material-icons text-white text-sm">chevron_right</span>
                 </button>
 
