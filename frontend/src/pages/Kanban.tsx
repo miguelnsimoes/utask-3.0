@@ -3,7 +3,7 @@ import { KanbanHeader } from '../components/KanbanHeader'
 import { QuoteCard } from '../components/QuoteCard'
 import { KanbanColumn } from '../components/KanbanColumn'
 import { Footer } from '../components/Footer'
-import { getCards, updateCard } from '../services/cards'
+import { getCards, updateCard, deleteCard } from '../services/cards'
 import type { Card } from '../services/cards'
 
 export function Kanban() {
@@ -41,6 +41,16 @@ export function Kanban() {
         }
     } 
 
+    const handleDeleteCard = async (cardId: number) => {
+        try {
+            await deleteCard(cardId)
+            setCards(cards.filter(c => c.id !== cardId))
+        } 
+        catch (error) {
+            console.error('erro ao deletar card:', error)
+        }
+    }
+
     return (
         <div className="flex flex-col h-screen bg-gray-50">
             <KanbanHeader />
@@ -52,18 +62,21 @@ export function Kanban() {
                     showAdd
                     cards={cards.filter(card => card.column === 'todo')}
                     onMoveCard={handleMoveCard}
+                    onDeleteCard={handleDeleteCard}
                 />
 
                 <KanbanColumn
                     title="Em andamento"
                     cards={cards.filter(card => card.column === 'doing')}
                     onMoveCard={handleMoveCard}
+                    onDeleteCard={handleDeleteCard}
                 />
 
                 <KanbanColumn
                     title="Feito"
                     cards={cards.filter(card => card.column === 'done')}
                     onMoveCard={handleMoveCard}
+                    onDeleteCard={handleDeleteCard}
                 />
             </div>
 

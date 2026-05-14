@@ -21,7 +21,7 @@ export async function updateCard(id: number, data: Partial<Card>): Promise<Card>
     const response = await api.put(`/cards/${id}`, data)
     return response.data
 }
-
+    
 export async function deleteCard(id: number): Promise<void> {
     await api.delete(`/cards/${id}`)
 }

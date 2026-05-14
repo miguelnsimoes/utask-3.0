@@ -9,9 +9,10 @@ interface Props {
     showAdd?: boolean
     cards: Card[]
     onMoveCard: (cardId: number) => void
+    onDeleteCard: (cardId: number) => void
 }
 
-export function KanbanColumn({title, showAdd, cards, onMoveCard}: Props) {
+export function KanbanColumn({title, showAdd, cards, onMoveCard, onDeleteCard}: Props) {
     const [showModal, setShowModal] = useState(false)
 
     return (
@@ -33,7 +34,7 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard}: Props) {
                         id={card.id} 
                         title={card.title} 
                         description={card.description} 
-                        onDelete={() => console.log('deletar', card.id)}
+                        onDelete={() => onDeleteCard(card.id)}
                         onMove={() => onMoveCard(card.id)}
                     />
                 ))} 
