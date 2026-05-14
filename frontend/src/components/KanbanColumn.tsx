@@ -9,10 +9,11 @@ interface Props {
     showAdd?: boolean
     cards: Card[]
     onMoveCard: (cardId: number) => void
+    onMoveBack?: (cardId: number) => void
     onDeleteCard: (cardId: number) => void
 }
 
-export function KanbanColumn({title, showAdd, cards, onMoveCard, onDeleteCard}: Props) {
+export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onDeleteCard}: Props) {
     const [showModal, setShowModal] = useState(false)
 
     return (
@@ -31,11 +32,11 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard, onDeleteCard}: 
                 {cards.map(card => ( 
                     <KanbanCard
                         key={card.id}
-                        id={card.id} 
                         title={card.title} 
                         description={card.description} 
                         onDelete={() => onDeleteCard(card.id)}
                         onMove={() => onMoveCard(card.id)}
+                        onMoveBack={onMoveBack ? () => onMoveBack(card.id) : undefined}
                     />
                 ))} 
             </div>

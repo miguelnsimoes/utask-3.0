@@ -2,14 +2,14 @@ import { useState } from 'react'
 import deleteIcon from '../assets/delete_outline.svg'
 
 interface Props {
-    id: number
     title: string
     description: string
     onDelete: () => void
-    onMove: () => void
+    onMove?: () => void
+    onMoveBack?: () => void
 }
 
-export function KanbanCard({id, title, description, onDelete, onMove}: Props) {
+export function KanbanCard({ title, description, onDelete, onMove, onMoveBack }: Props) {
     const [expanded, setExpanded] = useState(false) 
     const [showMenu, setShowMenu] = useState(false)
 
@@ -35,11 +35,23 @@ export function KanbanCard({id, title, description, onDelete, onMove}: Props) {
                     
                 </button>
 
-                <button 
-                    onClick={onMove}
-                    className="bg-primary-dark rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary-dark/80 transition-colors cursor-pointer">
-                    <span className="material-icons text-white text-sm">chevron_right</span>
-                </button>
+                <div className="flex items-center gap-2">
+                    {onMoveBack && (
+                        <button 
+                            onClick={onMoveBack}
+                            className="bg-primary-dark rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary-dark/80 transition-colors cursor-pointer">
+                            <span className="material-icons text-white text-sm">chevron_left</span>
+                        </button>
+                    )}
+
+                    {onMove && (
+                        <button 
+                            onClick={onMove}
+                            className="bg-primary-dark rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary-dark/80 transition-colors cursor-pointer">
+                            <span className="material-icons text-white text-sm">chevron_right</span>
+                        </button>
+                    )}
+                </div>
 
             </div> 
 
