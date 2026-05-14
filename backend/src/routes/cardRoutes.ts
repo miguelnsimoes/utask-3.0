@@ -13,7 +13,7 @@ declare module '@fastify/jwt' {
 export async function cardRoutes(app: FastifyInstance){
     app.addHook('preHandler', authMiddleware)
 
-    app.post('/cards', async (request, reply)=>{
+    app.post('/', async (request, reply)=>{
         const {title, description, column} = request.body as any
         const userId = request.user.sub
         const cardRepository = AppDataSource.getRepository(Card)
@@ -30,7 +30,7 @@ export async function cardRoutes(app: FastifyInstance){
 
     })
 
-    app.get('/cards', async (request)=>{
+    app.get('/', async (request)=>{
         const userId = request.user.sub
         const cardRepository = AppDataSource.getRepository(Card)
 
@@ -39,7 +39,7 @@ export async function cardRoutes(app: FastifyInstance){
         })
     })
 
-    app.put('/cards/:id', async(request, reply)=>{
+    app.put('/:id', async(request, reply)=>{
         const {id} = request.params as {id: string}
         const {title, description, column} = request.body as any
         const userId = request.user.sub
@@ -63,7 +63,7 @@ export async function cardRoutes(app: FastifyInstance){
 
     })
 
-    app.delete('/cards/:id', async(request, reply)=>{
+    app.delete('/:id', async(request, reply)=>{
         const{id} = request.params as {id: string}
         const userId = request.user.sub
         const cardRepository = AppDataSource.getRepository(Card)
