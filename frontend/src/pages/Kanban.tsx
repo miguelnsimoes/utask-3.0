@@ -36,7 +36,8 @@ export function Kanban() {
             setCards(cards.map(c => 
                 c.id === cardId ? { ...c, column: nextColumn } : c
             ))
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('erro mover card:', error)
         }
     } 
@@ -68,7 +69,8 @@ export function Kanban() {
             setCards(cards.map(c => 
                 c.id === cardId ? { ...c, column: 'todo' } : c
             ))
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('erro retornar card para a fazer:', error)
         }
     }
@@ -88,7 +90,7 @@ export function Kanban() {
             <KanbanHeader />
             <QuoteCard />
 
-            <div className="flex flex-1 gap-15 px-40 py-10">
+            <div className="flex flex-1 min-h-0 gap-15 px-40 py-10">
                 <KanbanColumn
                     title="A fazer"
                     showAdd

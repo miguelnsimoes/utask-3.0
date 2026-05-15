@@ -18,7 +18,7 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onR
     const [showModal, setShowModal] = useState(false)
 
     return (
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 min-h-0">
             
             <div className="flex items-center justify-between mb-3 px-1">
                 <h2 className="text-2xl font-poppins">{title}</h2>
@@ -29,7 +29,7 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onR
                 )}
             </div>
 
-            <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm gap-4"> 
+            <div className="flex flex-col flex-1 min-h-0 overflow-y-auto bg-[#EEEEEE] p-4 rounded-xl shadow-sm gap-4"> 
                 {cards.map(card => ( 
                     <KanbanCard
                         key={card.id}
