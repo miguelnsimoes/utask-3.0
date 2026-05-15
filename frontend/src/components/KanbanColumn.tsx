@@ -8,12 +8,13 @@ interface Props {
     title: string
     showAdd?: boolean
     cards: Card[]
-    onMoveCard: (cardId: number) => void
+    onMoveCard?: (cardId: number) => void
     onMoveBack?: (cardId: number) => void
+    onReturn?: (cardId: number) => void
     onDeleteCard: (cardId: number) => void
 }
 
-export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onDeleteCard}: Props) {
+export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onReturn, onDeleteCard}: Props) {
     const [showModal, setShowModal] = useState(false)
 
     return (
@@ -35,8 +36,10 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onD
                         title={card.title} 
                         description={card.description} 
                         onDelete={() => onDeleteCard(card.id)}
-                        onMove={() => onMoveCard(card.id)}
+                        onMove={onMoveCard ? () => onMoveCard(card.id) : undefined}
                         onMoveBack={onMoveBack ? () => onMoveBack(card.id) : undefined}
+                        onReturn={onReturn ? () => onReturn(card.id) : undefined}
+                        isDone={card.column === 'done'}
                     />
                 ))} 
             </div>

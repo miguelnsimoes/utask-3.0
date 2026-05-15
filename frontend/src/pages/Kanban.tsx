@@ -53,8 +53,23 @@ export function Kanban() {
             setCards(cards.map(c => 
                 c.id === cardId ? { ...c, column: previousColumn } : c
             ))
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('erro voltar card:', error)
+        }
+    }
+
+    const handleReturnToTodo = async (cardId: number) => {
+        const card = cards.find(c => c.id === cardId)
+        if (!card) return
+
+        try {
+            await updateCard(cardId, {column: 'todo'})
+            setCards(cards.map(c => 
+                c.id === cardId ? { ...c, column: 'todo' } : c
+            ))
+        } catch (error) {
+            console.error('erro retornar card para a fazer:', error)
         }
     }
 
@@ -93,8 +108,8 @@ export function Kanban() {
                 <KanbanColumn
                     title="Feito"
                     cards={cards.filter(card => card.column === 'done')}
-                    onMoveCard={handleMoveCard}
                     onMoveBack={handleBackCard}
+                    onReturn={handleReturnToTodo}
                     onDeleteCard={handleDeleteCard}
                 />
             </div>

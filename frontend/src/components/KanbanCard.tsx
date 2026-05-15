@@ -7,9 +7,11 @@ interface Props {
     onDelete: () => void
     onMove?: () => void
     onMoveBack?: () => void
+    onReturn?: () => void
+    isDone?: boolean
 }
 
-export function KanbanCard({ title, description, onDelete, onMove, onMoveBack }: Props) {
+export function KanbanCard({ title, description, onDelete, onMove, onMoveBack, onReturn, isDone }: Props) {
     const [expanded, setExpanded] = useState(false) 
     const [showMenu, setShowMenu] = useState(false)
 
@@ -17,7 +19,7 @@ export function KanbanCard({ title, description, onDelete, onMove, onMoveBack }:
         <div className="bg-white rounded-xl p-4 shadow-sm relative">
             
             <div className="flex items-center justify-between mb-2">
-                <h3 className="font-bold text-base">{title}</h3>
+                <h3 className={`font-bold text-base ${isDone ? 'line-through text-black' : ''}`}>{title}</h3>
                 <button onClick={() => setShowMenu(!showMenu)}>
                     <span className={`material-icons ${showMenu ? 'text-primary-dark' : 'text-gray-500'}`}>more_vert</span>
                 </button>
@@ -39,8 +41,16 @@ export function KanbanCard({ title, description, onDelete, onMove, onMoveBack }:
                     {onMoveBack && (
                         <button 
                             onClick={onMoveBack}
+                            className="bg-transparent border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
+                            <span className="material-icons text-primary-dark text-sm">chevron_left</span>
+                        </button>
+                    )}
+
+                    {onReturn && (
+                        <button 
+                            onClick={onReturn}
                             className="bg-primary-dark rounded-full w-8 h-8 flex items-center justify-center hover:bg-primary-dark/80 transition-colors cursor-pointer">
-                            <span className="material-icons text-white text-sm">chevron_left</span>
+                            <span className="material-icons text-white text-sm">rotate_left</span>
                         </button>
                     )}
 
