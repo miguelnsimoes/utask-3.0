@@ -1,15 +1,21 @@
-import { useState, useEffect } from 'react' 
+import { useState, useEffect } from 'react'
 import lampada from '../assets/tips_and_updates.svg'
 
 export function QuoteCard() {
-    const [quote, setQuote] = useState('Carregando frase...') 
+    const [quote, setQuote] = useState('Carregando frase...')
 
-    useEffect(() => { 
+    useEffect(() => {
         async function fetchQuote() {
             try {
                 const res = await fetch('https://api.adviceslip.com/advice')
                 const data = await res.json()
-                setQuote(data.slip.advice)
+                const texto = data.slip.advice
+
+                const translated = await fetch( 
+                    `https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=en|pt`
+                )
+                const translatedData = await translated.json()
+                setQuote(translatedData.responseData.translatedText) 
             } catch {
                 setQuote('Não foi possível carregar a frase do dia.')
             }
