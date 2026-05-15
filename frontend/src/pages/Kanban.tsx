@@ -36,10 +36,44 @@ export function Kanban() {
             setCards(cards.map(c => 
                 c.id === cardId ? { ...c, column: nextColumn } : c
             ))
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('erro mover card:', error)
         }
     } 
+
+    const handleBackCard = async (cardId: number) => {
+        const card = cards.find(c => c.id === cardId)
+        if (!card) return
+
+        const previousColumn = card.column === 'done' ? 'doing' : card.column === 'doing' ? 'todo' : undefined
+        if (!previousColumn) return
+
+        try {
+            await updateCard(cardId, {column: previousColumn})
+            setCards(cards.map(c => 
+                c.id === cardId ? { ...c, column: previousColumn } : c
+            ))
+        } 
+        catch (error) {
+            console.error('erro voltar card:', error)
+        }
+    }
+
+    const handleReturnToTodo = async (cardId: number) => {
+        const card = cards.find(c => c.id === cardId)
+        if (!card) return
+
+        try {
+            await updateCard(cardId, {column: 'todo'})
+            setCards(cards.map(c => 
+                c.id === cardId ? { ...c, column: 'todo' } : c
+            ))
+        } 
+        catch (error) {
+            console.error('erro retornar card para a fazer:', error)
+        }
+    }
 
     const handleDeleteCard = async (cardId: number) => {
         try {
@@ -56,7 +90,7 @@ export function Kanban() {
             <KanbanHeader />
             <QuoteCard />
 
-            <div className="flex flex-1 gap-15 px-40 py-10">
+            <div className="flex flex-1 min-h-0 gap-15 px-40 py-10">
                 <KanbanColumn
                     title="A fazer"
                     showAdd
@@ -69,13 +103,15 @@ export function Kanban() {
                     title="Em andamento"
                     cards={cards.filter(card => card.column === 'doing')}
                     onMoveCard={handleMoveCard}
+                    onMoveBack={handleBackCard}
                     onDeleteCard={handleDeleteCard}
                 />
 
                 <KanbanColumn
                     title="Feito"
                     cards={cards.filter(card => card.column === 'done')}
-                    onMoveCard={handleMoveCard}
+                    onMoveBack={handleBackCard}
+                    onReturn={handleReturnToTodo}
                     onDeleteCard={handleDeleteCard}
                 />
             </div>

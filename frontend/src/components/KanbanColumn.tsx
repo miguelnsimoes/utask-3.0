@@ -8,15 +8,17 @@ interface Props {
     title: string
     showAdd?: boolean
     cards: Card[]
-    onMoveCard: (cardId: number) => void
+    onMoveCard?: (cardId: number) => void
+    onMoveBack?: (cardId: number) => void
+    onReturn?: (cardId: number) => void
     onDeleteCard: (cardId: number) => void
 }
 
-export function KanbanColumn({title, showAdd, cards, onMoveCard, onDeleteCard}: Props) {
+export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onReturn, onDeleteCard}: Props) {
     const [showModal, setShowModal] = useState(false)
 
     return (
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 min-h-0">
             
             <div className="flex items-center justify-between mb-3 px-1">
                 <h2 className="text-2xl font-poppins">{title}</h2>
@@ -27,15 +29,17 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard, onDeleteCard}: 
                 )}
             </div>
 
-            <div className="flex flex-col flex-1 bg-[#EEEEEE] p-4 rounded-xl shadow-sm gap-4"> 
+            <div className="flex flex-col flex-1 min-h-0 overflow-y-auto bg-[#EEEEEE] p-4 rounded-xl shadow-sm gap-4"> 
                 {cards.map(card => ( 
                     <KanbanCard
                         key={card.id}
-                        id={card.id} 
                         title={card.title} 
                         description={card.description} 
                         onDelete={() => onDeleteCard(card.id)}
-                        onMove={() => onMoveCard(card.id)}
+                        onMove={onMoveCard ? () => onMoveCard(card.id) : undefined}
+                        onMoveBack={onMoveBack ? () => onMoveBack(card.id) : undefined}
+                        onReturn={onReturn ? () => onReturn(card.id) : undefined}
+                        isDone={card.column === 'done'}
                     />
                 ))} 
             </div>
