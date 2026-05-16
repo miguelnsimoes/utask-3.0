@@ -7,7 +7,11 @@ import { getCards, updateCard, deleteCard } from '../services/cards'
 import type { Card } from '../services/cards'
 
 export function Kanban() {
-    const [cards, setCards] = useState<Card[]>([]) 
+    const [cards, setCards] = useState<Card[]>([])
+    
+    const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true'
+})
 
     useEffect(() => { 
         async function loadCards() { 
@@ -86,9 +90,9 @@ export function Kanban() {
     }
 
     return (
-        <div className="flex flex-col h-screen bg-gray-50">
-            <KanbanHeader />
-            <QuoteCard />
+        <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-gray-50'}`}>
+            <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
+            <QuoteCard darkMode={darkMode} />
 
             <div className="flex flex-1 min-h-0 gap-15 px-40 py-10">
                 <KanbanColumn
@@ -97,6 +101,7 @@ export function Kanban() {
                     cards={cards.filter(card => card.column === 'todo')}
                     onMoveCard={handleMoveCard}
                     onDeleteCard={handleDeleteCard}
+                    darkMode={darkMode}
                 />
 
                 <KanbanColumn
@@ -105,6 +110,7 @@ export function Kanban() {
                     onMoveCard={handleMoveCard}
                     onMoveBack={handleBackCard}
                     onDeleteCard={handleDeleteCard}
+                    darkMode={darkMode}
                 />
 
                 <KanbanColumn
@@ -113,10 +119,11 @@ export function Kanban() {
                     onMoveBack={handleBackCard}
                     onReturn={handleReturnToTodo}
                     onDeleteCard={handleDeleteCard}
+                    darkMode={darkMode}
                 />
             </div>
 
-            <Footer />
+            <Footer darkMode={darkMode} />
         </div>
     )
 }

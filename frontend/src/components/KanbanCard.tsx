@@ -9,39 +9,38 @@ interface Props {
     onMoveBack?: () => void
     onReturn?: () => void
     isDone?: boolean
+    darkMode: boolean 
 }
 
-export function KanbanCard({ title, description, onDelete, onMove, onMoveBack, onReturn, isDone }: Props) {
+export function KanbanCard({ title, description, onDelete, onMove, onMoveBack, onReturn, isDone, darkMode }: Props) {
     const [expanded, setExpanded] = useState(false) 
     const [showMenu, setShowMenu] = useState(false)
 
     return (
-        <div className="bg-white rounded-xl p-4 shadow-sm relative">
+        <div className={`rounded-xl p-4 shadow-sm relative ${darkMode ? 'bg-[#3d3d3d]' : 'bg-white'}`}>
             
             <div className="flex items-center justify-between mb-2">
-                <h3 className={`font-bold text-base ${isDone ? 'line-through text-black' : ''}`}>{title}</h3>
+                <h3 className={`font-bold text-base ${isDone ? 'line-through' : ''} ${darkMode ? 'text-white' : 'text-black'}`}>{title}</h3>
                 <button onClick={() => setShowMenu(!showMenu)}>
-                    <span className={`material-icons ${showMenu ? 'text-primary-dark' : 'text-gray-500'}`}>more_vert</span>
+                    <span className={`material-icons ${showMenu ? 'text-primary-dark' : darkMode ? 'text-gray-300' : 'text-gray-500'}`}>more_vert</span> 
                 </button>
             </div>
 
             <div className="flex items-center justify-between">
                 <button
                     onClick={() => setExpanded(!expanded)} 
-                    className={`text-sm flex items-center gap-1 ${expanded ? 'text-primary-dark' : 'text-gray-500'}`}>
+                    className={`text-sm flex items-center gap-1 ${expanded ? 'text-primary-dark' : darkMode ? 'text-gray-300' : 'text-gray-500'}`}> 
                     {expanded ? 'Esconder descrição' : 'Ler descrição'}
-
                     <span className="material-icons text-sm">
                         {expanded ? 'expand_less' : 'expand_more'}
                     </span>
-                    
                 </button>
 
                 <div className="flex items-center gap-2">
                     {onMoveBack && (
                         <button 
                             onClick={onMoveBack}
-                            className="bg-transparent border border-gray-200 rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition-colors cursor-pointer">
+                            className={`bg-transparent border rounded-full w-8 h-8 flex items-center justify-center transition-colors cursor-pointer ${darkMode ? 'border-gray-500 hover:bg-gray-600' : 'border-gray-200 hover:bg-gray-100'}`}> 
                             <span className="material-icons text-primary-dark text-sm">chevron_left</span>
                         </button>
                     )}
@@ -62,11 +61,10 @@ export function KanbanCard({ title, description, onDelete, onMove, onMoveBack, o
                         </button>
                     )}
                 </div>
-
             </div> 
 
             {showMenu && ( 
-                <div className="absolute right-4 top-10 bg-white shadow-lg rounded-xl border border-gray-100 px-3 py-3 z-10"> {/* MUDOU */}
+                <div className={`absolute right-4 top-10 shadow-lg rounded-xl border px-3 py-3 z-10 ${darkMode ? 'bg-[#535353] border-gray-600' : 'bg-white border-gray-100'}`}>
                     <button
                         onClick={() => {onDelete(); setShowMenu(false)}}
                         className="flex items-center gap-2 text-red-500 font-poppins text-sm">
@@ -77,7 +75,7 @@ export function KanbanCard({ title, description, onDelete, onMove, onMoveBack, o
             )}
 
             {expanded && ( 
-                <p className="text-sm mt-2">{description}</p>
+                <p className={`text-sm mt-2 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>{description}</p>
             )}
 
         </div>

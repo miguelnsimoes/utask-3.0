@@ -2,19 +2,34 @@
 
 @theme {
   --font-poppins: 'Poppins', sans-serif;
-  
+
   --color-light-bg: #FFFFFF;
-  --color-dark-bg: #3D3D3D;
-  --color-dark-card: #535353;
-  --color-dark-surface: #222222;
   --color-light-gray: #FAFAFA;
   --color-mid-gray: #EEEEEE;
   --color-border-gray: #C4C4C4;
-  
+
+  --color-dark-bg: #3D3D3D; 
+  --color-dark-card: #535353;
+  --color-dark-surface: #222222;
+  --color-dark-border: #515151;
+  --color-dark-deep: #2E2E2E;
+  --color-dark-text: #FAFAFA;
+  --color-dark-back: #111111
+
+  --color-yellow-outer: #FFFCEE;
+  --color-yellow-inner: #FFF5C0;
+  --color-yellow-mid: #FFD569;
+  --color-yellow-main: #FBB910;
+  --color-yellow-dark-inner: #3D3D3D;
+  --color-yellow-dark-outer: #515151;
+
   --color-primary: #4890F5;
   --color-primary-dark: #226ED8;
   --color-primary-darker: #114FA7;
   --color-primary-navy: #002D6C;
+  --color-primary-dark-mode: #5C9DFF;
+  --color-primary-mid-dark: #333333;
+  --color-primary-blue: #3867D6;
 
   --color-error: #DF0000;
   --color-error-light: #FFAFAF;
@@ -23,3 +38,22 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C4C4C4;
+    border-radius: 999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #515151;
+}
+
+@variant dark (&:where(.dark, .dark *)); 
