@@ -117,7 +117,7 @@ export function Kanban() {
                 />
             </div>
 
-            <Footer />
+            <Footer darkMode={darkMode} />
         </div>
     )
 }

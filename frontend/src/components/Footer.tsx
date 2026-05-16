@@ -1,8 +1,12 @@
 import favorite from '../assets/favorite.svg'
 
-export function Footer() {
+interface Props { 
+    darkMode: boolean
+}
+
+export function Footer({ darkMode }: Props) { 
     return (
-        <footer className="w-full bg-primary-darker flex items-center justify-between px-16 py-4">
+        <footer className={`w-full flex items-center justify-between px-16 py-4 ${darkMode ? 'bg-[#111111]' : 'bg-primary-darker'}`}>
             <p className="text-white text-sm">
                 © Processo de Trainee <strong>Unect Jr.</strong>
             </p>
