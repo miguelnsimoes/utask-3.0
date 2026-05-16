@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { registerUser } from '../services/auth'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '../contexts/ThemeContext'
 
 
 interface FormErrors { 
@@ -16,6 +17,7 @@ interface FormErrors {
 
 export function Register() {
     const navigate = useNavigate()
+    const { darkMode } = useTheme()
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [errors, setErrors] = useState<FormErrors>({})
@@ -74,11 +76,11 @@ export function Register() {
     const inputClass = (field: keyof FormErrors) => 
         `border rounded-lg px-4 py-3 outline-none w-full ${errors[field] 
             ? 'border-red-400 bg-red-50 focus:border-red-400' 
-            : 'bg-blue-50 focus:border-primary'
+            : darkMode ? 'bg-[#333333] border-[#444444] text-white' : 'bg-blue-50 focus:border-primary' 
         }`
 
     return (    
-        <div className="flex flex-col h-screen">
+        <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-white'}`}>
             <Header />
 
             <div className='flex flex-1'>
@@ -87,14 +89,14 @@ export function Register() {
                     <div className="w-full max-w-md flex flex-col">
                         
                         <div className="flex flex-col items-center mb-10">
-                            <h1 className="text-5xl font-bold text-primary-dark mb-4">uTask 3.0</h1>
-                            <div className="w-48 border-b border-gray-400"></div>
+                            <h1 className={`text-5xl font-bold mb-4 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
+                            <div className={`w-48 border-b ${darkMode ? 'border-gray-600' : 'border-gray-400'}`}></div>
                         </div>
 
                         <div className='flex flex-col w-full'>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Crie uma conta</h2>
+                            <h2 className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Crie uma conta</h2>
                             
-                            <label className='text-sm mb-1 font-poppins font-normal'>Nome de usuário</label>
+                            <label className={`text-sm mb-1 font-poppins font-normal ${darkMode ? 'text-white' : ''}`}>Nome de usuário</label> 
                             <input 
                                 type="text" 
                                 placeholder='Seu nome de usuário'
@@ -106,7 +108,7 @@ export function Register() {
                                 {errors.username ?? ''}
                             </p>
 
-                            <label className='text-sm mb-1 font-poppins font-normal'>E-mail</label>
+                            <label className={`text-sm mb-1 font-poppins font-normal ${darkMode ? 'text-white' : ''}`}>E-mail</label> 
                             <input 
                                 type="email" 
                                 placeholder='Endereço de e-mail'
@@ -117,7 +119,7 @@ export function Register() {
                             <p className="text-red-500 text-xs h-5 mb-2">
                                 {errors.email ?? ''}
                             </p>
-                            <label className='text-sm mb-1 font-poppins font-normal'>Senha</label>
+                            <label className={`text-sm mb-1 font-poppins font-normal ${darkMode ? 'text-white' : ''}`}>Senha</label> 
                             <div className='relative'>
                             <input 
                                 type={showPassword ? 'text' : 'password'} 
@@ -129,7 +131,7 @@ export function Register() {
                             <button type='button'
                             onClick={()=> setShowPassword(!showPassword)}
                             className="absolute right-3 top-3 text-400">
-                            <span className='material-icons'>
+                            <span className={`material-icons ${darkMode ? 'text-gray-300' : ''}`}> 
                                 {showPassword ? 'visibility' : 'visibility_off'}
                             </span>  
                             </button>
@@ -138,7 +140,7 @@ export function Register() {
                                 {errors.password ?? ''}
                             </p>
 
-                            <label className='text-sm mb-1 font-poppins font-normal'>Confirme a Senha</label>
+                            <label className={`text-sm mb-1 font-poppins font-normal ${darkMode ? 'text-white' : ''}`}>Confirme a Senha</label> 
                             <div className='relative'>
                             <input 
                                 type={showConfirmPassword ? "text" : "password"}
@@ -150,7 +152,7 @@ export function Register() {
                             <button type='button'
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                             className="absolute right-3 top-3 text-400">
-                            <span className='material-icons'>
+                            <span className={`material-icons ${darkMode ? 'text-gray-300' : ''}`}> 
                                 {showConfirmPassword ? 'visibility' : 'visibility_off'}
                             </span>  
                             </button>
@@ -167,7 +169,7 @@ export function Register() {
                     </div>
                 </div>
 
-                <div className='w-px bg-primary my-16'></div>
+                <div className={`w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div>
 
                 <div className="w-1/2 flex items-center justify-center">
                     <img src={illustration} alt="ilustração" className="w-3/4" />
