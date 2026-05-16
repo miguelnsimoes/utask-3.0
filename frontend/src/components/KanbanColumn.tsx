@@ -41,13 +41,13 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onR
                         onMoveBack={onMoveBack ? () => onMoveBack(card.id) : undefined}
                         onReturn={onReturn ? () => onReturn(card.id) : undefined}
                         isDone={card.column === 'done'}
-                        darkMode={darkMode} 
+                        darkMode={darkMode}
                     />
                 ))} 
             </div>
 
             {showModal && (
-                 <CreateCardModal onClose={() => setShowModal(false)} />
+                 <CreateCardModal onClose={() => setShowModal(false)} darkMode={darkMode} />
             )}
 
         </div>
