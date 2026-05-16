@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { registerUser } from '../services/auth'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useTheme } from '../contexts/ThemeContext' 
+import { useTheme } from '../contexts/ThemeContext'
 
 
 interface FormErrors { 
@@ -80,7 +80,7 @@ export function Register() {
         }`
 
     return (    
-        <div className="flex flex-col h-screen">
+        <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-white'}`}> 
             <Header />
 
             <div className='flex flex-1'>
@@ -89,12 +89,12 @@ export function Register() {
                     <div className="w-full max-w-md flex flex-col">
                         
                         <div className="flex flex-col items-center mb-10">
-                            <h1 className="text-5xl font-bold text-primary-dark mb-4">uTask 3.0</h1>
-                            <div className="w-48 border-b border-gray-400"></div>
+                            <h1 className={`text-5xl font-bold mb-4 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
+                            <div className={`w-48 border-b ${darkMode ? 'border-gray-600' : 'border-gray-400'}`}></div> 
                         </div>
 
                         <div className='flex flex-col w-full'>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Crie uma conta</h2>
+                            <h2 className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Crie uma conta</h2>
                             
                             <label className='text-sm mb-1 font-poppins font-normal'>Nome de usuário</label>
                             <input 
@@ -169,7 +169,7 @@ export function Register() {
                     </div>
                 </div>
 
-                <div className='w-px bg-primary my-16'></div>
+                <div className={`w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div> 
 
                 <div className="w-1/2 flex items-center justify-center">
                     <img src={illustration} alt="ilustração" className="w-3/4" />
