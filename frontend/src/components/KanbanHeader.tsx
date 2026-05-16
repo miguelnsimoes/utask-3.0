@@ -1,7 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react'
-import logo from '../assets/logo azul.svg'
+import logo from '../assets/logo.svg' 
 import lightMode from '../assets/light_mode.svg'
 import darkModeIcon from '../assets/dark_mode.svg'
+import logoAzul from '../assets/logo azul.svg'
 
 interface Props {
     darkMode: boolean
@@ -10,11 +11,11 @@ interface Props {
 
 export function KanbanHeader({ darkMode, setDarkMode }: Props) {
     return (
-        <header className={`w-full flex items-center h-20 relative px-10 shadow-sm ${darkMode ? 'bg-primary-mid-dark' : 'bg-light-bg'}`}>
+        <header className={`w-full flex items-center h-20 relative px-10 shadow-sm ${darkMode ? 'bg-primary-mid-dark' : 'bg-primary-dark'}`}> {/* MUDOU */}
             
-            <img src={logo} alt="uTask logo" className="w-60 h-8" />
+            <img src={darkMode ? logoAzul : logo} alt="uTask logo" className="w-60 h-8" />
 
-            <h1 className="text-2xl font-bold absolute left-1/2 -translate-x-1/2 text-primary-blue">uTask 3.0</h1>
+            <h1 className={`text-2xl font-bold absolute left-1/2 -translate-x-1/2 ${darkMode ? 'text-primary-dark-mode' : 'text-white'}`}>uTask 3.0</h1>
 
             <button
                 onClick={() => setDarkMode(!darkMode)}
