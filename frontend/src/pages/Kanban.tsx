@@ -89,7 +89,7 @@ export function Kanban() {
     return (
         <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-gray-50'}`}>
             <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
-            <QuoteCard />
+            <QuoteCard darkMode={darkMode} />
 
             <div className="flex flex-1 min-h-0 gap-15 px-40 py-10">
                 <KanbanColumn
