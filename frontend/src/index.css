@@ -48,12 +48,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #C4C4C4;
+    background: #515151;
     border-radius: 999px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-    background: #515151;
+    background: #C4C4C4;
 }
 
 @variant dark (&:where(.dark, .dark *)); 
