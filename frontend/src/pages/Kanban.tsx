@@ -8,7 +8,10 @@ import type { Card } from '../services/cards'
 
 export function Kanban() {
     const [cards, setCards] = useState<Card[]>([])
-    const [darkMode, setDarkMode] = useState(false)
+    
+    const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true'
+})
 
     useEffect(() => { 
         async function loadCards() { 
