@@ -7,7 +7,8 @@ import { getCards, updateCard, deleteCard } from '../services/cards'
 import type { Card } from '../services/cards'
 
 export function Kanban() {
-    const [cards, setCards] = useState<Card[]>([]) 
+    const [cards, setCards] = useState<Card[]>([])
+    const [darkMode, setDarkMode] = useState(false)
 
     useEffect(() => { 
         async function loadCards() { 
@@ -86,8 +87,8 @@ export function Kanban() {
     }
 
     return (
-        <div className="flex flex-col h-screen bg-gray-50">
-            <KanbanHeader />
+        <div className={`flex flex-col h-screen ${darkMode ? 'bg-[var(--color-dark-bg)]' : 'bg-gray-50'}`}>
+            <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
             <QuoteCard />
 
             <div className="flex flex-1 min-h-0 gap-15 px-40 py-10">

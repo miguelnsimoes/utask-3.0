@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import logo from '../assets/logo.svg'
 import lightMode from '../assets/light_mode.svg'
 import darkModeIcon from '../assets/dark_mode.svg'
 
-export function KanbanHeader() {
-    const [darkMode, setDarkMode] = useState(false)
+interface Props {
+    darkMode: boolean
+    setDarkMode: Dispatch<SetStateAction<boolean>>
+}
 
+export function KanbanHeader({ darkMode, setDarkMode }: Props) {
     return (
         <header className="w-full bg-primary-dark flex items-center h-20 relative px-10 shadow-sm">
             
