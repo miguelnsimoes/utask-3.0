@@ -87,7 +87,7 @@ export function Kanban() {
     }
 
     return (
-        <div className={`flex flex-col h-screen ${darkMode ? 'bg-[var(--color-dark-bg)]' : 'bg-gray-50'}`}>
+        <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-gray-50'}`}>
             <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
             <QuoteCard />
 
@@ -98,6 +98,7 @@ export function Kanban() {
                     cards={cards.filter(card => card.column === 'todo')}
                     onMoveCard={handleMoveCard}
                     onDeleteCard={handleDeleteCard}
+                    darkMode={darkMode}
                 />
 
                 <KanbanColumn
@@ -106,6 +107,7 @@ export function Kanban() {
                     onMoveCard={handleMoveCard}
                     onMoveBack={handleBackCard}
                     onDeleteCard={handleDeleteCard}
+                    darkMode={darkMode}
                 />
 
                 <KanbanColumn
@@ -114,6 +116,7 @@ export function Kanban() {
                     onMoveBack={handleBackCard}
                     onReturn={handleReturnToTodo}
                     onDeleteCard={handleDeleteCard}
+                    darkMode={darkMode}
                 />
             </div>
 
