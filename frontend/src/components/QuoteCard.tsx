@@ -12,14 +12,15 @@ export function QuoteCard({ darkMode }: Props) {
     useEffect(() => { 
         async function fetchQuote() {
             try {
-                const res = await fetch('https://api.adviceslip.com/advice', {cache: 'no-cache'})
+                const res = await fetch('https://api.adviceslip.com/advice', { cache: 'no-cache' }) 
                 const data = await res.json()
-                const texto = data.slip.advice 
+                const texto = data.slip.advice
 
                 const translated = await fetch( 
                     `https://api.mymemory.translated.net/get?q=${encodeURIComponent(texto)}&langpair=en|pt`
                 )
                 const translatedData = await translated.json() 
+                setQuote(translatedData.responseData.translatedText) 
             } catch {
                 setQuote('Não foi possível carregar a frase do dia.')
             }
