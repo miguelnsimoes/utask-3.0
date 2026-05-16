@@ -39,4 +39,21 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C4C4C4;
+    border-radius: 999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #515151;
+}
+
 @variant dark (&:where(.dark, .dark *)); 
