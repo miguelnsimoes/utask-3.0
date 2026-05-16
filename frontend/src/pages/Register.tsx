@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { registerUser } from '../services/auth'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '../contexts/ThemeContext' 
 
 
 interface FormErrors { 
@@ -16,6 +17,7 @@ interface FormErrors {
 
 export function Register() {
     const navigate = useNavigate()
+    const { darkMode } = useTheme()
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [errors, setErrors] = useState<FormErrors>({})
