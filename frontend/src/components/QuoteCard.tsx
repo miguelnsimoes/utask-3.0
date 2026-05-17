@@ -37,10 +37,23 @@ export function QuoteCard({ darkMode }: Props) {
             <button
                 type="button"
                 onClick={() => setShowModal(true)}
-                className="sm:hidden shrink-0 mx-4 mt-4 w-[calc(100%-2rem)] rounded-2xl py-3.5 flex items-center justify-center gap-2 shadow-sm font-semibold text-gray-900 bg-yellow-main"
+                className="sm:hidden shrink-0 mx-auto mt-3 mb-6 w-[88%] max-w-xs rounded-2xl py-2.5 px-4 flex items-center gap-2.5 shadow-sm"
+                style={{ backgroundColor: darkMode ? '#515151' : '#FFD569' }}
             >
-                <img src={lampada} alt="" className="w-5 h-5" />
-                Frase do dia
+                <div
+                    className="relative flex items-center justify-center w-9 h-9 rounded-full shrink-0"
+                    style={{ backgroundColor: darkMode ? '#3D3D3D' : '#FFFCEE' }}
+                >
+                    <div
+                        className="flex items-center justify-center w-7 h-7 rounded-full"
+                        style={{ backgroundColor: darkMode ? '#535353' : '#FFF5C0' }}
+                    >
+                        <img src={darkMode ? lampadaBranca : lampada} alt="" className="w-4 h-4" />
+                    </div>
+                </div>
+                <span className="font-semibold text-sm text-white">
+                    Frase do dia
+                </span>
             </button>
 
 

@@ -28,11 +28,11 @@ export function KanbanHeader({ darkMode, setDarkMode }: Props) {
             <img
                 src={darkMode ? logoAzul : logo}
                 alt="uTask logo"
-                className="relative z-10 h-7 w-7 object-contain shrink-0 sm:h-8 sm:w-60 sm:object-left"
+                className="relative z-10 h-8 w-8 object-contain shrink-0 sm:h-9 sm:w-60 sm:object-left"
             />
 
             <h1
-                className={`absolute left-1/2 -translate-x-1/2 text-base sm:text-2xl font-bold whitespace-nowrap pointer-events-none ${titleClass}`}>
+                className={`absolute left-1/2 -translate-x-1/2 text-lg sm:text-3xl font-bold whitespace-nowrap pointer-events-none ${titleClass}`}>
                 uTask 3.0
             </h1>
 

@@ -14,6 +14,10 @@ export function Kanban() {
         return localStorage.getItem('darkMode') === 'true'
     })
 
+    useEffect(() => {
+        document.documentElement.classList.toggle('dark', darkMode)
+    }, [darkMode])
+
     useEffect(() => { 
         async function loadCards() { 
             try {

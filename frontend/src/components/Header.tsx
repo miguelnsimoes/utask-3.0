@@ -18,11 +18,11 @@ export function Header() {
             <img
                 src={darkMode ? logoAzul : logo}
                 alt="uTask logo"
-                className="relative z-10 h-7 w-7 object-contain shrink-0 sm:hidden"
+                className="relative z-10 h-8 w-8 object-contain shrink-0 sm:hidden"
             />
 
             <h1
-                className={`absolute left-1/2 -translate-x-1/2 text-base font-bold whitespace-nowrap pointer-events-none sm:hidden ${titleClass}`}>
+                className={`absolute left-1/2 -translate-x-1/2 text-lg font-bold whitespace-nowrap pointer-events-none sm:hidden ${titleClass}`}>
                 uTask 3.0
             </h1>
 
