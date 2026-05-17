@@ -4,7 +4,11 @@ import darkModeIcon from '../assets/dark_mode.svg'
 import logo from '../assets/logo.svg'
 import logoAzul from '../assets/logo azul.svg'
 
-export function Header() {
+interface HeaderProps {
+    isLogin?: boolean
+}
+
+export function Header({ isLogin = false }: HeaderProps) {
     const { darkMode, toggleDarkMode } = useTheme()
 
     const titleClass = darkMode ? 'text-primary-dark-mode' : 'text-white'
@@ -15,16 +19,21 @@ export function Header() {
                 h-14 px-4
                 sm:h-[52px] sm:justify-end sm:px-6
                 ${darkMode ? 'bg-[#333333]' : 'bg-primary-dark'}`}>
-            <img
-                src={darkMode ? logoAzul : logo}
-                alt="uTask logo"
-                className="relative z-10 h-8 w-8 object-contain shrink-0 sm:hidden"
-            />
 
-            <h1
-                className={`absolute left-1/2 -translate-x-1/2 text-lg font-bold whitespace-nowrap pointer-events-none sm:hidden ${titleClass}`}>
-                uTask 3.0
-            </h1>
+            {!isLogin && (
+                <>
+                    <img
+                        src={darkMode ? logoAzul : logo}
+                        alt="uTask logo"
+                        className="relative z-10 h-8 w-8 object-contain shrink-0 sm:hidden"
+                    />
+
+                    <h1
+                        className={`absolute left-1/2 -translate-x-1/2 text-lg font-bold whitespace-nowrap pointer-events-none sm:hidden ${titleClass}`}>
+                        uTask 3.0
+                    </h1>
+                </>
+            )}
 
             <button
                 type="button"
