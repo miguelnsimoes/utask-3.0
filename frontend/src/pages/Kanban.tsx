@@ -93,8 +93,8 @@ export function Kanban() {
         <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-gray-50'}`}>
             <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
             <QuoteCard darkMode={darkMode} />
-
-            <div className="flex flex-1 min-h-0 gap-15 px-40 py-10">
+    
+            <div className="hidden sm:flex flex-1 min-h-0 gap-15 px-40 py-10"> 
                 <KanbanColumn
                     title="A fazer"
                     showAdd
@@ -103,7 +103,6 @@ export function Kanban() {
                     onDeleteCard={handleDeleteCard}
                     darkMode={darkMode}
                 />
-
                 <KanbanColumn
                     title="Em andamento"
                     cards={cards.filter(card => card.column === 'doing')}
@@ -112,7 +111,6 @@ export function Kanban() {
                     onDeleteCard={handleDeleteCard}
                     darkMode={darkMode}
                 />
-
                 <KanbanColumn
                     title="Feito"
                     cards={cards.filter(card => card.column === 'done')}
@@ -122,7 +120,7 @@ export function Kanban() {
                     darkMode={darkMode}
                 />
             </div>
-
+    
             <Footer darkMode={darkMode} />
         </div>
     )
