@@ -30,7 +30,8 @@ export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onR
                 )}
             </div>
 
-            <div className={`flex flex-col flex-1 min-h-0 overflow-y-auto p-4 rounded-xl shadow-sm gap-4 ${darkMode ? 'bg-[#333333]' : 'bg-mid-gray'}`}>
+            <div
+                className={`kanban-column-scroll flex flex-col flex-1 min-h-0 overflow-y-auto p-4 rounded-xl shadow-sm gap-4 ${darkMode ? 'dark-scroll bg-[#333333]' : 'bg-mid-gray'}`}>
                 {cards.map(card => ( 
                     <KanbanCard
                         key={card.id}

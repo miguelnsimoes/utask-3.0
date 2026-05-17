@@ -10,7 +10,6 @@ interface FormErrors{
   password?: string
 }
 
-
 export function Login() { 
   const navigate = useNavigate()
   const { darkMode } = useTheme()
@@ -62,19 +61,19 @@ export function Login() {
       : darkMode ? 'bg-[#333333] border-[#444444] text-white' : 'bg-blue-50 focus:border-primary'}`
 
   return (
-  <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-white'}`}>
-    <Header />
+  <div className={`flex flex-col h-screen ${darkMode ? 'bg-dark-back' : 'bg-white'}`}>
+    <Header isLogin={true} />
       
       <div className="flex flex-1">  
 
-       <div className="w-1/2 flex items-center justify-center">
+       <div className="hidden sm:flex w-1/2 items-center justify-center">
           <img src={illustration} alt="ilustração" className="w-3/4" />
        </div>
 
-      <div className={`w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div>
+      <div className={`hidden sm:block w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div>
 
-      <div className="w-1/2 flex flex-col items-center justify-start pt-22 px-20">
-        <h1 className={`text-5xl font-bold mb-12 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
+      <div className="w-full sm:w-1/2 flex flex-col items-center justify-start pt-10 sm:pt-22 px-6 sm:px-20">
+        <h1 className={`text-center w-full text-4xl sm:text-5xl font-bold mb-8 sm:mb-12 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
         
         <div className="flex flex-col w-full max-w-md">   
           <label className={`text-sm mb-1 font-poppins font-normal ${darkMode ? 'text-white' : 'text-gray-900'}`}>E-mail</label>
@@ -112,7 +111,7 @@ export function Login() {
           className="bg-primary-dark text-white py-3 rounded-full font-semibold hover:bg-primary-navy transition">Entrar</button>
           
             <hr className="my-8 w-50 mx-auto border-1 border-gray-400" />
-            <p onClick={() => navigate('/register')} className={`text-center text-sm underline font-poppins font-normal ${darkMode ? 'text-white' : 'text-gray-900'}`}>Não tem cadastro ? Crie uma conta</p> 
+            <p onClick={() => navigate('/register')} className={`cursor-pointer text-center text-sm underline font-poppins font-normal ${darkMode ? 'text-white' : 'text-gray-900'}`}>Não tem cadastro ? Crie uma conta</p> 
         </div>
 
       </div>  
