@@ -5,6 +5,8 @@ import { CreateCardModal } from './CreateCardModal'
 import type { Card } from '../services/cards'
 
 interface Props {
+    columnId: string
+    viewPrefix: string
     title: string
     showAdd?: boolean
     cards: Card[]
@@ -15,7 +17,7 @@ interface Props {
     darkMode: boolean 
 }
 
-export function KanbanColumn({title, showAdd, cards, onMoveCard, onMoveBack, onReturn, onDeleteCard, darkMode}: Props) {
+export function KanbanColumn({columnId, viewPrefix, title, showAdd, cards, onMoveCard, onMoveBack, onReturn, onDeleteCard, darkMode}: Props) {
     const [showModal, setShowModal] = useState(false)
 
     return (

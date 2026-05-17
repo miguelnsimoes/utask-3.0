@@ -5,6 +5,8 @@ import { KanbanColumn } from '../components/KanbanColumn'
 import { Footer } from '../components/Footer'
 import { getCards, updateCard, deleteCard } from '../services/cards'
 import type { Card } from '../services/cards'
+import { DragDropContext } from '@hello-pangea/dnd'
+import type { DropResult } from '@hello-pangea/dnd'
 
 export function Kanban() {
     const [cards, setCards] = useState<Card[]>([])
@@ -30,6 +32,22 @@ export function Kanban() {
         }
         loadCards() 
     }, []) 
+
+    const handleDragEnd = async (result: DropResult) => {
+        const { source, destination, draggableId } = result
+        if (!destination) return
+        if (source.droppableId === destination.droppableId) return
+
+        const cardId = parseInt(draggableId.split('-')[0])
+        const destinationColumn = destination.droppableId.split('-')[0] as 'todo' | 'doing' | 'done'
+
+        try {
+            await updateCard(cardId, { column: destinationColumn })
+            setCards(cards.map(c => c.id === cardId ? { ...c, column: destinationColumn } : c))
+        } catch (error) {
+            console.error('erro ao mover card via drag:', error)
+        }
+    }
 
     const handleMoveCard = async (cardId: number) => {
         const card = cards.find(c => c.id === cardId)
@@ -80,6 +98,7 @@ export function Kanban() {
     const columns = [
         {
             title: 'A fazer',
+            columnId: 'todo',
             showAdd: true,
             cards: cards.filter(card => card.column === 'todo'),
             onMoveCard: handleMoveCard,
@@ -89,6 +108,7 @@ export function Kanban() {
         },
         {
             title: 'Em andamento',
+            columnId: 'doing',
             showAdd: false,
             cards: cards.filter(card => card.column === 'doing'),
             onMoveCard: handleMoveCard,
@@ -98,6 +118,7 @@ export function Kanban() {
         },
         {
             title: 'Feito',
+            columnId: 'done',
             showAdd: false,
             cards: cards.filter(card => card.column === 'done'),
             onMoveCard: undefined,
@@ -108,74 +129,78 @@ export function Kanban() {
     ]
 
     return (
-        <div className={`flex flex-col h-dvh overflow-hidden ${darkMode ? 'bg-dark-back' : 'bg-gray-50'}`}> 
-            <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
-            <QuoteCard darkMode={darkMode} />
+        <DragDropContext onDragEnd={handleDragEnd}>
+            <div className={`flex flex-col h-dvh overflow-hidden ${darkMode ? 'bg-dark-back' : 'bg-gray-50'}`}> 
+                <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
+                <QuoteCard darkMode={darkMode} />
 
- 
-            <div className="hidden sm:flex flex-1 min-h-0 overflow-hidden gap-15 px-40 py-10">
-                {columns.map((col, i) => (
-                    <KanbanColumn
-                        key={i}
-                        title={col.title}
-                        showAdd={col.showAdd}
-                        cards={col.cards}
-                        onMoveCard={col.onMoveCard}
-                        onMoveBack={col.onMoveBack}
-                        onReturn={col.onReturn}
-                        onDeleteCard={col.onDeleteCard}
-                        darkMode={darkMode}
-                    />
-                ))}
-            </div>
-
-
-            <div className="flex sm:hidden flex-1 min-h-0 flex-col overflow-hidden px-2 pb-2">
-                <div className="flex flex-1 min-h-0 items-stretch gap-1 overflow-hidden">
-                    <button
-                        type="button"
-                        onClick={() => setActiveColumn(prev => Math.max(0, prev - 1))}
-                        disabled={activeColumn === 0}
-                        className={`shrink-0 self-center text-primary-dark ${activeColumn === 0 ? 'opacity-20' : ''}`}>
-                        <span className="material-icons text-3xl">chevron_left</span>
-                    </button>
-
-                    <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
+                <div className="hidden sm:flex flex-1 min-h-0 overflow-hidden gap-15 px-40 py-10">
+                    {columns.map((col, i) => (
                         <KanbanColumn
-                            title={columns[activeColumn].title}
-                            showAdd={columns[activeColumn].showAdd}
-                            cards={columns[activeColumn].cards}
-                            onMoveCard={columns[activeColumn].onMoveCard}
-                            onMoveBack={columns[activeColumn].onMoveBack}
-                            onReturn={columns[activeColumn].onReturn}
-                            onDeleteCard={columns[activeColumn].onDeleteCard}
-                            darkMode={darkMode}
-                        />
-                    </div>
-
-                    <button
-                        type="button"
-                        onClick={() => setActiveColumn(prev => Math.min(columns.length - 1, prev + 1))}
-                        disabled={activeColumn === columns.length - 1} 
-                        className={`shrink-0 self-center text-primary-dark ${activeColumn === columns.length - 1 ? 'opacity-20' : ''}`}>
-                        <span className="material-icons text-3xl">chevron_right</span>
-                    </button>
-                </div>
-
-                <div className="flex shrink-0 items-center justify-center gap-2 py-3"> 
-                    {columns.map((_, i) => (
-                        <button
                             key={i}
-                            onClick={() => setActiveColumn(i)}
-                            className={`w-3 h-3 rounded-full transition-colors ${
-                                activeColumn === i ? 'bg-primary-dark' : 'bg-gray-300'
-                            }`}
+                            columnId={col.columnId}
+                            viewPrefix="desktop"
+                            title={col.title}
+                            showAdd={col.showAdd}
+                            cards={col.cards}
+                            onMoveCard={col.onMoveCard}
+                            onMoveBack={col.onMoveBack}
+                            onReturn={col.onReturn}
+                            onDeleteCard={col.onDeleteCard}
+                            darkMode={darkMode}
                         />
                     ))}
                 </div>
-            </div>
 
-            <Footer darkMode={darkMode} />
-        </div>
+                <div className="flex sm:hidden flex-1 min-h-0 flex-col overflow-hidden px-2 pb-2">
+                    <div className="flex flex-1 min-h-0 items-stretch gap-1 overflow-hidden">
+                        <button
+                            type="button"
+                            onClick={() => setActiveColumn(prev => Math.max(0, prev - 1))}
+                            disabled={activeColumn === 0}
+                            className={`shrink-0 self-center text-primary-dark ${activeColumn === 0 ? 'opacity-20' : ''}`}>
+                            <span className="material-icons text-3xl">chevron_left</span>
+                        </button>
+
+                        <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
+                            <KanbanColumn
+                                columnId={columns[activeColumn].columnId}
+                                viewPrefix="mobile"
+                                title={columns[activeColumn].title}
+                                showAdd={columns[activeColumn].showAdd}
+                                cards={columns[activeColumn].cards}
+                                onMoveCard={columns[activeColumn].onMoveCard}
+                                onMoveBack={columns[activeColumn].onMoveBack}
+                                onReturn={columns[activeColumn].onReturn}
+                                onDeleteCard={columns[activeColumn].onDeleteCard}
+                                darkMode={darkMode}
+                            />
+                        </div>
+
+                        <button
+                            type="button"
+                            onClick={() => setActiveColumn(prev => Math.min(columns.length - 1, prev + 1))}
+                            disabled={activeColumn === columns.length - 1} 
+                            className={`shrink-0 self-center text-primary-dark ${activeColumn === columns.length - 1 ? 'opacity-20' : ''}`}>
+                            <span className="material-icons text-3xl">chevron_right</span>
+                        </button>
+                    </div>
+
+                    <div className="flex shrink-0 items-center justify-center gap-2 py-3"> 
+                        {columns.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => setActiveColumn(i)}
+                                className={`w-3 h-3 rounded-full transition-colors ${
+                                    activeColumn === i ? 'bg-primary-dark' : 'bg-gray-300'
+                                }`}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                <Footer darkMode={darkMode} />
+            </div>
+        </DragDropContext>
     )
 }
