@@ -71,8 +71,6 @@ export function Register() {
         }
     }
 
-
-
     const inputClass = (field: keyof FormErrors) => 
         `border rounded-lg px-4 py-3 outline-none w-full ${errors[field] 
             ? 'border-red-400 bg-red-50 focus:border-red-400' 
@@ -84,7 +82,7 @@ export function Register() {
             <Header />
 
             <div className='flex flex-1'>
-                <div className="w-1/2 flex justify-center pt-20 px-10">
+                <div className="w-full sm:w-1/2 flex justify-center pt-20 px-10">
                     
                     <div className="w-full max-w-md flex flex-col">
                         
@@ -169,9 +167,9 @@ export function Register() {
                     </div>
                 </div>
 
-                <div className={`w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div>
+                <div className={`hidden sm:block w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div>
 
-                <div className="w-1/2 flex items-center justify-center">
+                <div className="hidden sm:flex w-1/2 items-center justify-center">
                     <img src={illustration} alt="ilustração" className="w-3/4" />
                 </div>
 
