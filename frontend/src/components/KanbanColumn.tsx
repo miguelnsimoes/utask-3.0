@@ -23,7 +23,6 @@ export function KanbanColumn({columnId, viewPrefix, title, showAdd, cards, onMov
 
     return (
         <div className="flex flex-col flex-1 min-h-0">
-
             <div className="flex items-center justify-between mb-3 px-1">
                 <h2 className={`text-2xl font-poppins ${darkMode ? 'text-white' : 'text-gray-900'}`}>{title}</h2> 
                 {showAdd && (
@@ -70,7 +69,6 @@ export function KanbanColumn({columnId, viewPrefix, title, showAdd, cards, onMov
             {showModal && (
                  <CreateCardModal onClose={() => setShowModal(false)} darkMode={darkMode} />
             )}
-
         </div>
     )
 }

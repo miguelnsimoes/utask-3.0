@@ -5,8 +5,7 @@ import { KanbanColumn } from '../components/KanbanColumn'
 import { Footer } from '../components/Footer'
 import { getCards, updateCard, deleteCard } from '../services/cards'
 import type { Card } from '../services/cards'
-import { DragDropContext } from '@hello-pangea/dnd'
-import type { DropResult } from '@hello-pangea/dnd'
+import { DragDropContext, type DropResult } from '@hello-pangea/dnd'
 
 export function Kanban() {
     const [cards, setCards] = useState<Card[]>([])
@@ -32,22 +31,6 @@ export function Kanban() {
         }
         loadCards() 
     }, []) 
-
-    const handleDragEnd = async (result: DropResult) => {
-        const { source, destination, draggableId } = result
-        if (!destination) return
-        if (source.droppableId === destination.droppableId) return
-
-        const cardId = parseInt(draggableId.split('-')[0])
-        const destinationColumn = destination.droppableId.split('-')[0] as 'todo' | 'doing' | 'done'
-
-        try {
-            await updateCard(cardId, { column: destinationColumn })
-            setCards(cards.map(c => c.id === cardId ? { ...c, column: destinationColumn } : c))
-        } catch (error) {
-            console.error('erro ao mover card via drag:', error)
-        }
-    }
 
     const handleMoveCard = async (cardId: number) => {
         const card = cards.find(c => c.id === cardId)
@@ -95,10 +78,42 @@ export function Kanban() {
         }
     }
 
+    const onDragEnd = async (result: DropResult) => {
+        const { source, destination, draggableId } = result
+
+        if (!destination) return
+        if (source.droppableId === destination.droppableId && source.index === destination.index) return
+
+        const sourceId = source.droppableId.replace('-desktop', '').replace('-mobile', '')
+        const destId = destination.droppableId.replace('-desktop', '').replace('-mobile', '')
+        const cardId = Number(draggableId.replace('-desktop', '').replace('-mobile', ''))
+
+        const newColumn = destId
+        const currentCards = [...cards]
+
+        if (sourceId !== destId) {
+            setCards(prevCards => prevCards.map(c => c.id === cardId ? { ...c, column: newColumn } : c))
+            
+            try {
+                await updateCard(cardId, { column: newColumn })
+            } catch (error) {
+                console.error('Erro ao mover card via drag and drop:', error)
+                setCards(currentCards)
+            }
+        } else {
+            const colCards = currentCards.filter(c => c.column === sourceId)
+            const [movedCard] = colCards.splice(source.index, 1)
+            colCards.splice(destination.index, 0, movedCard)
+
+            const otherCards = currentCards.filter(c => c.column !== sourceId)
+            setCards([...otherCards, ...colCards]) 
+        }
+    }
+
     const columns = [
         {
+            id: 'todo',
             title: 'A fazer',
-            columnId: 'todo',
             showAdd: true,
             cards: cards.filter(card => card.column === 'todo'),
             onMoveCard: handleMoveCard,
@@ -107,8 +122,8 @@ export function Kanban() {
             onDeleteCard: handleDeleteCard,
         },
         {
+            id: 'doing',
             title: 'Em andamento',
-            columnId: 'doing',
             showAdd: false,
             cards: cards.filter(card => card.column === 'doing'),
             onMoveCard: handleMoveCard,
@@ -117,8 +132,8 @@ export function Kanban() {
             onDeleteCard: handleDeleteCard,
         },
         {
+            id: 'done',
             title: 'Feito',
-            columnId: 'done',
             showAdd: false,
             cards: cards.filter(card => card.column === 'done'),
             onMoveCard: undefined,
@@ -129,16 +144,16 @@ export function Kanban() {
     ]
 
     return (
-        <DragDropContext onDragEnd={handleDragEnd}>
-            <div className={`flex flex-col h-dvh overflow-hidden ${darkMode ? 'bg-dark-back' : 'bg-gray-50'}`}> 
-                <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
-                <QuoteCard darkMode={darkMode} />
+        <div className={`flex flex-col h-dvh overflow-hidden ${darkMode ? 'bg-dark-back' : 'bg-gray-50'}`}> 
+            <KanbanHeader darkMode={darkMode} setDarkMode={setDarkMode} />
+            <QuoteCard darkMode={darkMode} />
 
+            <DragDropContext onDragEnd={onDragEnd}>
                 <div className="hidden sm:flex flex-1 min-h-0 overflow-hidden gap-15 px-40 py-10">
                     {columns.map((col, i) => (
                         <KanbanColumn
                             key={i}
-                            columnId={col.columnId}
+                            columnId={col.id}
                             viewPrefix="desktop"
                             title={col.title}
                             showAdd={col.showAdd}
@@ -164,7 +179,7 @@ export function Kanban() {
 
                         <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
                             <KanbanColumn
-                                columnId={columns[activeColumn].columnId}
+                                columnId={columns[activeColumn].id}
                                 viewPrefix="mobile"
                                 title={columns[activeColumn].title}
                                 showAdd={columns[activeColumn].showAdd}
@@ -198,9 +213,9 @@ export function Kanban() {
                         ))}
                     </div>
                 </div>
+            </DragDropContext>
 
-                <Footer darkMode={darkMode} />
-            </div>
-        </DragDropContext>
+            <Footer darkMode={darkMode} />
+        </div>
     )
 }
