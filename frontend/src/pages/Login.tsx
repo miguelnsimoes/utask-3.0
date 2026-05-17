@@ -61,7 +61,7 @@ export function Login() {
       : darkMode ? 'bg-[#333333] border-[#444444] text-white' : 'bg-blue-50 focus:border-primary'}`
 
   return (
-  <div className={`flex flex-col h-screen ${darkMode ? 'bg-[#222222]' : 'bg-white'}`}>
+  <div className={`flex flex-col h-screen ${darkMode ? 'bg-dark-back' : 'bg-white'}`}>
     <Header />
       
       <div className="flex flex-1">  
@@ -73,7 +73,7 @@ export function Login() {
       <div className={`hidden sm:block w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div>
 
       <div className="w-full sm:w-1/2 flex flex-col items-center justify-start pt-10 sm:pt-22 px-6 sm:px-20">
-        <h1 className={`text-4xl sm:text-5xl font-bold mb-8 sm:mb-12 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
+        <h1 className={`hidden sm:block text-4xl sm:text-5xl font-bold mb-8 sm:mb-12 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
         
         <div className="flex flex-col w-full max-w-md">   
           <label className={`text-sm mb-1 font-poppins font-normal ${darkMode ? 'text-white' : 'text-gray-900'}`}>E-mail</label>
