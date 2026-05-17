@@ -66,13 +66,13 @@ export function Login() {
       
       <div className="flex flex-1">  
 
-       <div className="hidden sm:flex w-1/2 items-center justify-center"> {/* MUDOU */}
+       <div className="hidden sm:flex w-1/2 items-center justify-center"> 
           <img src={illustration} alt="ilustração" className="w-3/4" />
        </div>
 
-      <div className={`hidden sm:block w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div> {/* MUDOU */}
+      <div className={`hidden sm:block w-px my-16 ${darkMode ? 'bg-gray-600' : 'bg-primary'}`}></div>
 
-      <div className="w-full sm:w-1/2 flex flex-col items-center justify-start pt-22 px-20"> {/* MUDOU */}
+      <div className="w-full sm:w-1/2 flex flex-col items-center justify-start pt-22 px-20"> 
         <h1 className={`text-5xl font-bold mb-12 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
         
         <div className="flex flex-col w-full max-w-md">   
