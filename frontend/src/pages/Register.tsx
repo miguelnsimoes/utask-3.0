@@ -82,17 +82,17 @@ export function Register() {
             <Header />
 
             <div className='flex flex-1'>
-                <div className="w-full sm:w-1/2 flex justify-center pt-20 px-10">
+                <div className="w-full sm:w-1/2 flex justify-center pt-10 sm:pt-20 px-6 sm:px-10"> 
                     
                     <div className="w-full max-w-md flex flex-col">
                         
                         <div className="flex flex-col items-center mb-10">
-                            <h1 className={`text-5xl font-bold mb-4 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1>
+                            <h1 className={`text-4xl sm:text-5xl font-bold mb-4 ${darkMode ? 'text-primary-dark-mode' : 'text-primary-dark'}`}>uTask 3.0</h1> 
                             <div className={`w-48 border-b ${darkMode ? 'border-gray-600' : 'border-gray-400'}`}></div>
                         </div>
 
                         <div className='flex flex-col w-full'>
-                            <h2 className={`text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Crie uma conta</h2>
+                            <h2 className={`text-xl sm:text-2xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Crie uma conta</h2> 
                             
                             <label className={`text-sm mb-1 font-poppins font-normal ${darkMode ? 'text-white' : ''}`}>Nome de usuário</label> 
                             <input 
