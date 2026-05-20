@@ -1,7 +1,5 @@
 # uTask 3.0
 
-> ⚠️ Projeto em desenvolvimento
-
 Sistema de gerenciamento de tarefas no formato Kanban, com autenticação de usuários e interface moderna com suporte a dark mode.
 
 ---
@@ -93,10 +91,10 @@ npm run dev
 | Tela de Cadastro | ✅ Concluído |
 | Rotas de autenticação (JWT) | ✅ Concluído |
 | CRUD de cards | ✅ Concluído |
-| Tela Kanban | 🚧 Em desenvolvimento |
-| Dark Mode | 🚧 Em desenvolvimento |
-| Frase do dia | 🚧 Em desenvolvimento |
-| Responsividade | 🚧 Em desenvolvimento |
+| Tela Kanban | ✅ Concluído |
+| Dark Mode | ✅ Concluído |
+| Frase do dia | ✅ Concluído |
+| Responsividade | ✅ Concluído |
 
 ---
 
